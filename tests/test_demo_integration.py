@@ -1,6 +1,6 @@
 """Description.
 
-Integration tests for the demo commands of the batches_optimization application"""
+Integration tests for the demo commands of the BatchMonitor application"""
 
 import os
 import sys
@@ -20,7 +20,7 @@ def change_dir():
 def test_demo_batchcollection():
     """Test the demo_batchcollection.py command"""
 
-    run(["python", "-m", "batches_optimization", "demo-batchcollection"])
+    run(["python", "-m", "BatchMonitor", "demo-batchcollection"])
     waited_path = Path(".").resolve() / "demo_batchcollection.json"
     assert waited_path.exists()
     content = waited_path.read_text()
@@ -94,7 +94,7 @@ def test_demo_batchcollection():
 def test_demo_batchlists():
     """Test the demo_batchlists.py command"""
 
-    run(["python", "-m", "batches_optimization", "demo-batchlists"])
+    run(["python", "-m", "BatchMonitor", "demo-batchlists"])
     waited_path = Path(".").resolve() / "demo_batchlists.json"
     assert waited_path.exists()
     content = waited_path.read_text()
@@ -288,7 +288,7 @@ def test_demo_batchlists():
 def test_demo_itemlistrequest():
     """Test the demo_itemlistrequest.py command"""
 
-    run(["python", "-m", "batches_optimization", "demo-itemlistrequest"])
+    run(["python", "-m", "BatchMonitor", "demo-itemlistrequest"])
     waited_path = Path(".").resolve() / "demo_itemlistrequest.json"
     assert waited_path.exists()
     content = waited_path.read_text()

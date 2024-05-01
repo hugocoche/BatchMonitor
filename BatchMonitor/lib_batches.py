@@ -1263,7 +1263,7 @@ class BatchCollection:
     def from_str(
         cls,
         *strings: str,
-        seller: str,
+        seller: str = "Default seller",
     ) -> "BatchCollection":
         """Creates a batch collection from a string.
 
@@ -1686,7 +1686,7 @@ class BatchLists:
                         [batch for batch in batches]
                     )
 
-            self.batchlists = list(seller_to_batches.values())
+            self.batch_collections = list(seller_to_batches.values())
 
             for batches in self:
                 for batch in batches:

@@ -15,6 +15,7 @@ import sys
 
 import typer
 from rich.console import Console
+from subprocess import run
 
 from BatchMonitor import (
     BatchCollection,
@@ -463,6 +464,12 @@ def solve(
         rates=rates,
         variable_constraints=variable_constraints,
     )
+
+
+@app.command()
+def API():
+    """Run the streamlit app"""
+    run(["python", "-m", "streamlit", "run", "BatchMonitor/Welcome.py"])
 
 
 if __name__ == "__main__":

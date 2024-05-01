@@ -29,7 +29,7 @@ def test_styled_prompt():
 
     mock_prompt_ask = MagicMock()
 
-    with patch("batches_optimization.lib_app.Prompt.ask", mock_prompt_ask):
+    with patch("BatchMonitor.lib_app.Prompt.ask", mock_prompt_ask):
         _styled_prompt("test_text")
 
     mock_prompt_ask.assert_called_once_with("[cyan]test_text[/cyan]")
@@ -40,7 +40,7 @@ def test_styled_echo():
 
     mock_console_print = MagicMock()
 
-    with patch("batches_optimization.lib_app.console.print", mock_console_print):
+    with patch("BatchMonitor.lib_app.console.print", mock_console_print):
         _styled_echo("test_text")
 
     mock_console_print.assert_called_once_with("[rgb(255,255,0)]test_text")
@@ -51,7 +51,7 @@ def test_style_h2():
 
     mock_console_print = MagicMock()
 
-    with patch("batches_optimization.lib_app.console.print", mock_console_print):
+    with patch("BatchMonitor.lib_app.console.print", mock_console_print):
         _style_h2("test_text")
 
     assert "magenta" == mock_console_print.call_args_list[0][1]["style"]
@@ -64,7 +64,7 @@ def test_style_invalid_choice():
 
     mock_console_print = MagicMock()
 
-    with patch("batches_optimization.lib_app.console.print", mock_console_print):
+    with patch("BatchMonitor.lib_app.console.print", mock_console_print):
         _style_invalid_choice("test_text")
 
     mock_console_print.assert_called_once_with(

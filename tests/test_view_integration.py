@@ -1,6 +1,6 @@
 """Description.
 
-Integration tests for the view commands of batches_optimization application"""
+Integration tests for the view commands of BatchMonitor application"""
 
 import os
 import sys
@@ -19,13 +19,13 @@ def change_dir():
 
 
 def test_view_batchcollection():
-    """Test of the view_batches command of the batches_optimization application"""
-    run(["python", "-m", "batches_optimization", "demo-batchcollection"])
+    """Test of the view_batches command of the BatchMonitor application"""
+    run(["python", "-m", "BatchMonitor", "demo-batchcollection"])
     result = run(
         [
             "python",
             "-m",
-            "batches_optimization",
+            "BatchMonitor",
             "view-batches",
             "demo_batchcollection.json",
         ],
@@ -52,14 +52,14 @@ def test_view_batchcollection():
 
 
 def test_view_batchlists():
-    """Test of the view_batchlists command of the batches_optimization application"""
+    """Test of the view_batchlists command of the BatchMonitor application"""
 
-    run(["python", "-m", "batches_optimization", "demo-batchlists"])
+    run(["python", "-m", "BatchMonitor", "demo-batchlists"])
     result = run(
         [
             "python",
             "-m",
-            "batches_optimization",
+            "BatchMonitor",
             "view-batches",
             "demo_batchlists.json",
         ],
@@ -89,14 +89,14 @@ def test_view_batchlists():
 
 
 def test_view_itemlistrequest():
-    """Test of the view-itemlist command of the batches_optimization application"""
+    """Test of the view-itemlist command of the BatchMonitor application"""
 
-    run(["python", "-m", "batches_optimization", "demo-itemlistrequest"])
+    run(["python", "-m", "BatchMonitor", "demo-itemlistrequest"])
     result = run(
         [
             "python",
             "-m",
-            "batches_optimization",
+            "BatchMonitor",
             "view-ilr",
             "demo_itemlistrequest.json",
         ],
@@ -119,25 +119,25 @@ def test_view_itemlistrequest():
 
 
 def test_raise_error():
-    """Test of the errors of the view commands of the batches_optimization application"""
-    run(["python", "-m", "batches_optimization", "demo-batchcollection"])
+    """Test of the errors of the view commands of the BatchMonitor application"""
+    run(["python", "-m", "BatchMonitor", "demo-batchcollection"])
     out = run(
         [
             "python",
             "-m",
-            "batches_optimization",
+            "BatchMonitor",
             "view-ilr",
             "demo_batchcollection.json",
         ]
     )
     assert out.returncode == 1
 
-    run(["python", "-m", "batches_optimization", "demo-itemlistrequest"])
+    run(["python", "-m", "BatchMonitor", "demo-itemlistrequest"])
     out = run(
         [
             "python",
             "-m",
-            "batches_optimization",
+            "BatchMonitor",
             "view-batches",
             "demo_itemlistrequest.json",
         ]

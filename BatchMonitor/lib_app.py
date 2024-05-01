@@ -58,7 +58,7 @@ MARKDOWN_DESCRIPTION = """
 
 > If you have already created a BatchCollection, BatchLists, and an ItemListRequest object, you can solve the optimization problem with the following command:
 
-- python3 -m batches_optimization solve --batches-path path_to_batches --items-path path_to_items
+- python -m BatchMonitor solve path_to_batches path_to_items
 """
 
 
@@ -223,7 +223,7 @@ def _bc_creation():
         while True:
             try:
                 str_batch = _styled_prompt(
-                    f"\n[red]⠹ {round(100*(numero)/number_of_batches,2)}% : [/red]Enter the Batch n°{numero}"
+                    f"\n[red]⠹ {round(100 * (numero) / number_of_batches, 2)}% : [/red]Enter the Batch n°{numero}"
                 )
                 console.print(str_batch)
                 bc.add_batch(Batch.from_str(str_batch))
@@ -255,7 +255,7 @@ def _bl_creation():
         while True:
             try:
                 str_batch = _styled_prompt(
-                    f"\n[red]⠹ {round(100*(numero)/number_of_batches,2)}% : [/red]Enter the Batch n°{numero}"
+                    f"\n[red]⠹ {round(100 * (numero) / number_of_batches, 2)}% : [/red]Enter the Batch n°{numero}"
                 )
                 seller, str_batch = str_batch.split("_")
                 bl.add_BatchCollection(
@@ -290,7 +290,7 @@ def _item_request_creation():
         while True:
             try:
                 str_items = _styled_prompt(
-                    f"\n[red]⠹ {round(100*(numero)/number_of_items,2)}% : [/red]Enter the item n°{numero} you want to request"
+                    f"\n[red]⠹ {round(100 * (numero) / number_of_items, 2)}% : [/red]Enter the item n°{numero} you want to request"
                 )
                 ilr.add_item(ItemRequest.from_str(str_items))
                 break

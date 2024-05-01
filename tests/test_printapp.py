@@ -36,13 +36,13 @@ def test_printed_me():
     lay_ilr = Table()
     lay_me = Table()
 
-    with patch("batches_optimization.lib_app._style_h2", mock_style_h2), patch(
-        "batches_optimization.lib_app._animate_progress_bar", mock_animate_progress_bar
+    with patch("BatchMonitor.lib_app._style_h2", mock_style_h2), patch(
+        "BatchMonitor.lib_app._animate_progress_bar", mock_animate_progress_bar
     ), patch(
-        "batches_optimization.lib_app._resolution_progress_bar",
+        "BatchMonitor.lib_app._resolution_progress_bar",
         mock_resolution_progress_bar,
     ), patch(
-        "batches_optimization.lib_app.console.print", mock_console_print
+        "BatchMonitor.lib_app.console.print", mock_console_print
     ):
 
         _printed_me(lay_batch, lay_ilr, lay_me)
@@ -67,10 +67,10 @@ def test_printed_mbe():
     lay_ilr = Table()
     lay_mbe = Table()
 
-    with patch("batches_optimization.lib_app._style_h2", mock_style_h2), patch(
-        "batches_optimization.lib_app._resolution_progress_bar",
+    with patch("BatchMonitor.lib_app._style_h2", mock_style_h2), patch(
+        "BatchMonitor.lib_app._resolution_progress_bar",
         mock_resolution_progress_bar,
-    ), patch("batches_optimization.lib_app.console.print", mock_console_print):
+    ), patch("BatchMonitor.lib_app.console.print", mock_console_print):
         _printed_mbe(lay_batch, lay_ilr, lay_mbe)
 
     mock_style_h2.assert_any_call(
@@ -96,11 +96,11 @@ def test_printed_both():
     lay_mbe = Table()
     lay_me = Table()
 
-    with patch("batches_optimization.lib_app._style_h2", mock_style_h2), patch(
-        "batches_optimization.lib_app._resolution_progress_bar",
+    with patch("BatchMonitor.lib_app._style_h2", mock_style_h2), patch(
+        "BatchMonitor.lib_app._resolution_progress_bar",
         mock_resolution_progress_bar,
-    ), patch("batches_optimization.lib_app.console.print", mock_console_print), patch(
-        "batches_optimization.lib_app.Layout", mock_layout
+    ), patch("BatchMonitor.lib_app.console.print", mock_console_print), patch(
+        "BatchMonitor.lib_app.Layout", mock_layout
     ):
 
         _printed_both(lay_batch, lay_ilr, lay_mbe, lay_me)

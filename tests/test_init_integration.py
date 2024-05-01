@@ -1,6 +1,6 @@
 """Description
 
-Integration tests for the initialization commands of batches_optimization application"""
+Integration tests for the initialization commands of BatchMonitor application"""
 
 import os
 import sys
@@ -164,9 +164,9 @@ def setup_module():
 
 
 def test_init_app():
-    """Test of the _init_app function of the batches_optimization application"""
+    """Test of the _init_app function of the BatchMonitor application"""
 
-    with patch("batches_optimization.lib_app.console.print") as mock_print:
+    with patch("BatchMonitor.lib_app.console.print") as mock_print:
         _init_app()
         assert mock_print.call_count == 3
         assert mock_print.call_args_list[0][0][0].markup == MARKDOWN_TITLE
@@ -175,10 +175,10 @@ def test_init_app():
 
 
 def test_init_problem():
-    """Test of the _init_problem function of the batches_optimization application"""
+    """Test of the _init_problem function of the BatchMonitor application"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["ddd", "minBatchExpense"],
     ) as mock_prompt:
         problem = _init_problem()
@@ -190,12 +190,12 @@ def test_init_problem():
 
 
 def test_init_batchtype_one():
-    """Test of the _init_batchtype function of the batches_optimization application for one seller"""
+    """Test of the _init_batchtype function of the BatchMonitor application for one seller"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt", return_value="one"
+        "BatchMonitor.lib_app._styled_prompt", return_value="one"
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._bc_creation",
+        "BatchMonitor.lib_app._bc_creation",
         return_value=(5, ["batch1", "batch2"]),
     ) as mock_bc_creation:
         number_of_batches, batch_list = _init_batchtype()
@@ -208,12 +208,12 @@ def test_init_batchtype_one():
 
 
 def test_init_batchtype_multiple():
-    """Test of the _init_batchtype function of the batches_optimization application for multiple sellers"""
+    """Test of the _init_batchtype function of the BatchMonitor application for multiple sellers"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt", side_effect=["22", "multiple"]
+        "BatchMonitor.lib_app._styled_prompt", side_effect=["22", "multiple"]
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._bl_creation",
+        "BatchMonitor.lib_app._bl_creation",
         return_value=(3, ["batchA", "batchB"]),
     ) as mock_bl_creation:
         number_of_batches, batch_list = _init_batchtype()
@@ -227,10 +227,10 @@ def test_init_batchtype_multiple():
 
 
 def test_init_solve():
-    """Test of the _init_solve function of the batches_optimization application"""
+    """Test of the _init_solve function of the BatchMonitor application"""
 
     with patch(
-        "batches_optimization.__main__._styled_prompt",
+        "BatchMonitor.__main__._styled_prompt",
         side_effect=["BatchCollection", "minBatchExpense"],
     ):
         batch_type, problem_type = _init_solve()
@@ -239,7 +239,7 @@ def test_init_solve():
     assert problem_type == "minBatchExpense"
 
     with patch(
-        "batches_optimization.__main__._styled_prompt",
+        "BatchMonitor.__main__._styled_prompt",
         side_effect=["BatchList", "maxEarnings"],
     ):
         batch_type, problem_type = _init_solve()
@@ -249,7 +249,7 @@ def test_init_solve():
 
 
 def test_create_object_from_json(bc_fixture, ilr_fixture, bl_fixture):
-    """Test of the _create_object_from_json function of the batches_optimization application"""
+    """Test of the _create_object_from_json function of the BatchMonitor application"""
 
     bc, ilr, number_of_bc = _create_object_from_json(
         "BatchCollection", "demo_batchcollection.json", "demo_itemlistrequest.json"
@@ -267,7 +267,7 @@ def test_create_object_from_json(bc_fixture, ilr_fixture, bl_fixture):
 
 
 def test_error_create_object_from_json():
-    """Test of the errors of the _create_object_from_json function of the batches_optimization application"""
+    """Test of the errors of the _create_object_from_json function of the BatchMonitor application"""
 
     with pytest.raises(SystemExit):
         _create_object_from_json(
@@ -288,7 +288,7 @@ def test_error_create_object_from_json():
 
 
 def test_number_creation():
-    """Test of the _number_creation function of the batches_optimization application"""
+    """Test of the _number_creation function of the BatchMonitor application"""
 
     with patch("rich.console.Console.input", return_value="3") as mock_input:
         number = _number_creation("Batches")
@@ -302,25 +302,23 @@ def test_number_creation():
 
 
 def test_invalid_number_creation():
-    """Test of the _number_creation function of the batches_optimization application with invalid input"""
+    """Test of the _number_creation function of the BatchMonitor application with invalid input"""
 
     with patch(
         "rich.console.Console.input", side_effect=["badinput", "-3", "3"]
-    ), patch(
-        "batches_optimization.lib_app._style_invalid_choice"
-    ) as mock_style_invalid_choice:
+    ), patch("BatchMonitor.lib_app._style_invalid_choice") as mock_style_invalid_choice:
         number = _number_creation("Batches")
     assert mock_style_invalid_choice.call_count == 2
     assert number == 3
 
 
 def test_bc_creation():
-    """Test of the _bc_creation function of the batches_optimization application"""
+    """Test of the _bc_creation function of the BatchMonitor application"""
 
-    with patch("batches_optimization.lib_app._style_h2") as mock_style_h2, patch(
-        "batches_optimization.lib_app._number_creation", return_value=3
+    with patch("BatchMonitor.lib_app._style_h2") as mock_style_h2, patch(
+        "BatchMonitor.lib_app._number_creation", return_value=3
     ) as mock_number_creation, patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=[
             "seller",
             "Batch1:10; 1xapple, 2xbanana",
@@ -328,13 +326,13 @@ def test_bc_creation():
             "Batch3:10; 1xapple, 2xbanana",
         ],
     ) as mock_styled_prompt, patch(
-        "batches_optimization.lib_app._styled_echo"
+        "BatchMonitor.lib_app._styled_echo"
     ) as mock_styled_echo, patch(
-        "batches_optimization.lib_app.BatchCollection"
+        "BatchMonitor.lib_app.BatchCollection"
     ) as mock_BatchCollection, patch(
-        "batches_optimization.lib_app.Batch.from_str"
+        "BatchMonitor.lib_app.Batch.from_str"
     ) as mock_from_str, patch(
-        "batches_optimization.lib_app._animate_progress_bar"
+        "BatchMonitor.lib_app._animate_progress_bar"
     ) as mock_animate_progress_bar:
         mock_BatchCollection.return_value = MagicMock()
         mock_from_str.return_value = MagicMock()
@@ -360,24 +358,24 @@ def test_bc_creation():
 
 
 def test_bc_creation_bad_input():
-    """Test of the _bc_creation function of the batches_optimization application with bad input"""
+    """Test of the _bc_creation function of the BatchMonitor application with bad input"""
 
-    with patch("batches_optimization.lib_app._style_h2") as mock_style_h2, patch(
-        "batches_optimization.lib_app._number_creation", return_value=1
+    with patch("BatchMonitor.lib_app._style_h2") as mock_style_h2, patch(
+        "BatchMonitor.lib_app._number_creation", return_value=1
     ) as mock_number_creation, patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["seller", "BadInput", "Batch1:10; 1xapple, 2xbanana"],
     ) as mock_styled_prompt, patch(
-        "batches_optimization.lib_app._styled_echo"
+        "BatchMonitor.lib_app._styled_echo"
     ) as mock_styled_echo, patch(
-        "batches_optimization.lib_app.BatchCollection"
+        "BatchMonitor.lib_app.BatchCollection"
     ) as mock_BatchCollection, patch(
-        "batches_optimization.lib_app.Batch.from_str",
+        "BatchMonitor.lib_app.Batch.from_str",
         side_effect=[ValueError, MagicMock()],
     ) as mock_from_str, patch(
-        "batches_optimization.lib_app._animate_progress_bar"
+        "BatchMonitor.lib_app._animate_progress_bar"
     ) as mock_animate_progress_bar, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         mock_BatchCollection.return_value = MagicMock()
 
@@ -404,21 +402,21 @@ def test_bc_creation_bad_input():
 
 
 def test_bl_creation():
-    """Test of the _bl_creation function of the batches_optimization application"""
+    """Test of the _bl_creation function of the BatchMonitor application"""
 
-    with patch("batches_optimization.lib_app._style_h2") as mock_style_h2, patch(
-        "batches_optimization.lib_app._number_creation", return_value=1
+    with patch("BatchMonitor.lib_app._style_h2") as mock_style_h2, patch(
+        "BatchMonitor.lib_app._number_creation", return_value=1
     ) as mock_number_creation, patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         return_value="Seller1_Batch1:10; 1xapple, 2xbanana",
     ) as mock_styled_prompt, patch(
-        "batches_optimization.lib_app._styled_echo"
+        "BatchMonitor.lib_app._styled_echo"
     ) as mock_styled_echo, patch(
-        "batches_optimization.lib_app.BatchLists"
+        "BatchMonitor.lib_app.BatchLists"
     ) as mock_BatchLists, patch(
-        "batches_optimization.lib_app.BatchCollection.from_str"
+        "BatchMonitor.lib_app.BatchCollection.from_str"
     ) as mock_from_str, patch(
-        "batches_optimization.lib_app._animate_progress_bar"
+        "BatchMonitor.lib_app._animate_progress_bar"
     ) as mock_animate_progress_bar:
         mock_BatchLists.return_value = MagicMock()
         mock_from_str.return_value = MagicMock()
@@ -445,22 +443,22 @@ def test_bl_creation():
 def test_bl_creation_bad_input():
     """Test of the _bl_creation function with bad input"""
 
-    with patch("batches_optimization.lib_app._style_h2") as mock_style_h2, patch(
-        "batches_optimization.lib_app._number_creation", return_value=1
+    with patch("BatchMonitor.lib_app._style_h2") as mock_style_h2, patch(
+        "BatchMonitor.lib_app._number_creation", return_value=1
     ) as mock_number_creation, patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["badinput", "bad_input", "Seller1_Batch1:10; 1xapple, 2xbanana"],
     ) as mock_styled_prompt, patch(
-        "batches_optimization.lib_app._styled_echo"
+        "BatchMonitor.lib_app._styled_echo"
     ) as mock_styled_echo, patch(
-        "batches_optimization.lib_app.BatchLists"
+        "BatchMonitor.lib_app.BatchLists"
     ) as mock_BatchLists, patch(
-        "batches_optimization.lib_app.BatchCollection.from_str",
+        "BatchMonitor.lib_app.BatchCollection.from_str",
         side_effect=[ValueError, MagicMock()],
     ) as mock_from_str, patch(
-        "batches_optimization.lib_app._animate_progress_bar"
+        "BatchMonitor.lib_app._animate_progress_bar"
     ) as mock_animate_progress_bar, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         mock_BatchLists.return_value = MagicMock()
         mock_from_str.return_value = MagicMock()
@@ -484,24 +482,24 @@ def test_bl_creation_bad_input():
 
 
 def test_item_request_creation():
-    """Test of the _item_request_creation function of the batches_optimization application"""
+    """Test of the _item_request_creation function of the BatchMonitor application"""
 
-    with patch("batches_optimization.lib_app._style_h2") as mock_style_h2, patch(
-        "batches_optimization.lib_app._number_creation", return_value=3
+    with patch("BatchMonitor.lib_app._style_h2") as mock_style_h2, patch(
+        "BatchMonitor.lib_app._number_creation", return_value=3
     ) as mock_number, patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaa", "1-3 of apple", "2-5 of banana", "3-4 of orange"],
     ) as mock_styled_prompt, patch(
-        "batches_optimization.lib_app._styled_echo"
+        "BatchMonitor.lib_app._styled_echo"
     ) as mock_style_echo, patch(
-        "batches_optimization.lib_app.ItemListRequest"
+        "BatchMonitor.lib_app.ItemListRequest"
     ) as mock_ItemListRequest, patch(
-        "batches_optimization.lib_app.ItemRequest.from_str",
+        "BatchMonitor.lib_app.ItemRequest.from_str",
         side_effect=[ValueError, MagicMock(), MagicMock(), MagicMock()],
     ) as mock_from_str, patch(
-        "batches_optimization.lib_app._animate_progress_bar"
+        "BatchMonitor.lib_app._animate_progress_bar"
     ) as mock_animate_progress_bar, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         mock_ItemListRequest.return_value = MagicMock()
         mock_from_str.return_value = MagicMock()
@@ -525,7 +523,7 @@ def test_item_request_creation():
 
 
 def test_transform_string_category():
-    """Test of the _transform_string_category function of the batches_optimization application"""
+    """Test of the _transform_string_category function of the BatchMonitor application"""
 
     assert _transform_string_category("continuous") == "Continuous"
     assert _transform_string_category("integer") == "Integer"
@@ -534,13 +532,13 @@ def test_transform_string_category():
 
 
 def test_init_of_one_category_for_all_batch_quantities():
-    """Test of the _init_category_of_batch_quantities function of the batches_optimization application"""
+    """Test of the _init_category_of_batch_quantities function of the BatchMonitor application"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["ddd", "one", "cc", "continuous"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         category = _init_category_of_batch_quantities(
             BatchLists.from_str(
@@ -562,13 +560,13 @@ def test_init_of_one_category_for_all_batch_quantities():
 
 
 def test_init_of_category_for_each_batch_quantity():
-    """Test of the _init_category_of_batch_quantities function of the batches_optimization application"""
+    """Test of the _init_category_of_batch_quantities function of the BatchMonitor application"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["ddd", "all", "cc", "continuous", "integer"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         category = _init_category_of_batch_quantities(
             BatchLists.from_str(
@@ -615,13 +613,13 @@ def test_init_objective_function_constraints_min_greater_than_max():
     """Test of the _init_objective_function_constraints function for the minimum constraint greater than the maximum constraint"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaaa", "both", "zzzz", "10", "5", "10", "20"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._init_objective_function_constraints_prompt",
+        "BatchMonitor.lib_app._init_objective_function_constraints_prompt",
         return_value=("choice_prompt", "min_prompt", "max_prompt", "error_prompt"),
     ), patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         minimum, maximum = _init_objective_function_constraints(
             "minimum expense", "maximum expense"
@@ -667,13 +665,13 @@ def test_init_objective_function_constraints_min():
     """Test of the _init_objective_function_constraints function for the minimum constraint"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaaa", "min", "zzzz", "10"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._init_objective_function_constraints_prompt",
+        "BatchMonitor.lib_app._init_objective_function_constraints_prompt",
         return_value=("choice_prompt", "min_prompt", "max_prompt", "error_prompt"),
     ), patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         minimum, maximum = _init_objective_function_constraints(
             "minimum expense", "maximum expense"
@@ -691,13 +689,13 @@ def test_init_objective_function_constraints_max():
     """Test of the _init_objective_function_constraints function for the maximum constraint"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaaaa", "max", "bbb", "20"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._init_objective_function_constraints_prompt",
+        "BatchMonitor.lib_app._init_objective_function_constraints_prompt",
         return_value=("choice_prompt", "min_prompt", "max_prompt", "error_prompt"),
     ), patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         minimum, maximum = _init_objective_function_constraints(
             "minimum expense", "maximum expense"
@@ -715,9 +713,9 @@ def test_init_objective_function_constraints_both():
     """Test of the _init_objective_function_constraints function for both constraints"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt", side_effect=["both", "10", "20"]
+        "BatchMonitor.lib_app._styled_prompt", side_effect=["both", "10", "20"]
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._init_objective_function_constraints_prompt",
+        "BatchMonitor.lib_app._init_objective_function_constraints_prompt",
         return_value=("choice_prompt", "min_prompt", "max_prompt", "error_prompt"),
     ):
         minimum, maximum = _init_objective_function_constraints(
@@ -738,11 +736,11 @@ def test_init_rates_exchange_rate():
     """Test of the _init_rates function for the exchange rate"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt", side_effect=["aaa", "1"]
+        "BatchMonitor.lib_app._styled_prompt", side_effect=["aaa", "1"]
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._verify_rates", return_value=True
+        "BatchMonitor.lib_app._verify_rates", return_value=True
     ) as mock_verify, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_invalid:
         rates = _init_rates("exchange rate", 3)
         assert rates == 1.0
@@ -766,11 +764,11 @@ def test_init_rates_tax_rate():
     """Test of the _init_rates function for the tax rate"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt", side_effect=["a,b,c", "0,1,2"]
+        "BatchMonitor.lib_app._styled_prompt", side_effect=["a,b,c", "0,1,2"]
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._verify_rates", return_value=True
+        "BatchMonitor.lib_app._verify_rates", return_value=True
     ), patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_invalid:
         rates = _init_rates("tax rate", 3)
         assert (rates == np.array([0, 1, 2])).all()
@@ -791,7 +789,7 @@ def test_init_rates_tax_rate():
 
 
 def test_verify_rates():
-    """Test of the _verify_rates function of the batches_optimization application"""
+    """Test of the _verify_rates function of the BatchMonitor application"""
 
     assert _verify_rates(np.array([1, 2, 3]), 3)
     assert _verify_rates(np.array([1]), 3)
@@ -800,7 +798,7 @@ def test_verify_rates():
 
 
 def test_batch_transformation():
-    """Test of the _batch_transformation function of the batches_optimization application"""
+    """Test of the _batch_transformation function of the BatchMonitor application"""
 
     bc = BatchCollection.from_str(
         "seller 1_batch 1: 1; 2xapple, 5xbanana, 6xorange",
@@ -821,7 +819,7 @@ def test_batch_transformation():
 
 
 def test_init_batch_constraints():
-    """Test of the _init_batch_constraints function of the batches_optimization application"""
+    """Test of the _init_batch_constraints function of the BatchMonitor application"""
 
     batch_list = BatchCollection.from_str(
         "batch1: 1; 2xapple, 5xbanana, 6xorange",
@@ -829,7 +827,7 @@ def test_init_batch_constraints():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["both", "1", "2", "3", "4"],
     ) as mock_prompt:
         result = _init_batch_constraints(batch_list)
@@ -860,10 +858,10 @@ def test_init_batch_constraints_min():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaaa", "min", "aaaa", "1", "2"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         result = _init_batch_constraints(batch_list)
         expected_result = {
@@ -898,10 +896,10 @@ def test_init_batch_constraints_max():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaaaa", "max", "aaaaa", "1", "2"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         result = _init_batch_constraints(batch_list)
         expected_result = {
@@ -936,10 +934,10 @@ def test_init_batch_constraints_both_min_greater_than_max():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["both", "2", "1", "1", "2", "3", "4"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         result = _init_batch_constraints(batch_list)
         expected_result = {
@@ -966,7 +964,7 @@ def test_init_batch_constraints_both_min_greater_than_max():
 
 
 def test_init_minBatchExpense():
-    """Test of the _init_minBatchExpense function of the batches_optimization application"""
+    """Test of the _init_minBatchExpense function of the BatchMonitor application"""
 
     batch_list = BatchCollection.from_str(
         "batch1: 1; 2xapple, 5xbanana, 6xorange",
@@ -980,7 +978,7 @@ def test_init_minBatchExpense():
     variable_constraints = True
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=[
             "all",
             "Continuous",
@@ -1027,7 +1025,7 @@ def test_init_minBatchExpense():
 
 
 def test_init_minBatchExpense_without_option():
-    """Test of the _init_minBatchExpense function of the batches_optimization application without option"""
+    """Test of the _init_minBatchExpense function of the BatchMonitor application without option"""
 
     batch_list = BatchCollection.from_str(
         "batch1: 1; 2xapple, 5xbanana, 6xorange",
@@ -1040,7 +1038,7 @@ def test_init_minBatchExpense_without_option():
     rates = False
     variable_constraints = False
 
-    with patch("batches_optimization.lib_app._styled_prompt"):
+    with patch("BatchMonitor.lib_app._styled_prompt"):
         result = _init_minBatchExpense(
             number_of_batches,
             batch_list,
@@ -1063,13 +1061,13 @@ def test_init_minBatchExpense_without_option():
 
 
 def test_init_of_one_category_for_all_item_price():
-    """Test of the _init_category_of_item_prices function of the batches_optimization application"""
+    """Test of the _init_category_of_item_prices function of the BatchMonitor application"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["ddd", "one", "cc", "continuous"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         category = _init_category_of_item_prices(
             BatchLists.from_str(
@@ -1091,13 +1089,13 @@ def test_init_of_one_category_for_all_item_price():
 
 
 def test_init_of_category_for_each_item_prices():
-    """Test of the _init_category_of_item_prices function of the batches_optimization application"""
+    """Test of the _init_category_of_item_prices function of the BatchMonitor application"""
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["ddd", "all", "cc", "continuous", "integer"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         category = _init_category_of_item_prices(
             BatchLists.from_str(
@@ -1122,7 +1120,7 @@ def test_init_of_category_for_each_item_prices():
 
 
 def test_init_item_prices_constraints():
-    """Test of the _init_item_prices_constraints function of the batches_optimization application"""
+    """Test of the _init_item_prices_constraints function of the BatchMonitor application"""
 
     batch_list = BatchCollection.from_str(
         "batch1: 1; 2xapple, 5xbanana",
@@ -1130,7 +1128,7 @@ def test_init_item_prices_constraints():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["both", "1", "2", "3", "4"],
     ) as mock_prompt:
         result = _init_item_prices_constraints(batch_list)
@@ -1161,10 +1159,10 @@ def test_init_item_prices_constraints_min():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaaa", "min", "aaaa", "1", "2"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         result = _init_item_prices_constraints(batch_list)
         expected_result = {
@@ -1199,10 +1197,10 @@ def test_init_item_prices_constraints_max():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["aaaaa", "max", "aaaaa", "1", "2"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         result = _init_item_prices_constraints(batch_list)
         expected_result = {
@@ -1237,10 +1235,10 @@ def test_init_item_prices_constraints_both_min_greater_than_max():
         seller="seller 1",
     )
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=["both", "2", "1", "1", "2", "3", "4"],
     ) as mock_prompt, patch(
-        "batches_optimization.lib_app._style_invalid_choice"
+        "BatchMonitor.lib_app._style_invalid_choice"
     ) as mock_style_invalid_choice:
         result = _init_item_prices_constraints(batch_list)
         expected_result = {
@@ -1267,7 +1265,7 @@ def test_init_item_prices_constraints_both_min_greater_than_max():
 
 
 def test_init_maxEarnings():
-    """Test of the _init_minBatchExpense function of the batches_optimization application"""
+    """Test of the _init_minBatchExpense function of the BatchMonitor application"""
 
     batch_list = BatchCollection.from_str(
         "batch1: 1; 2xapple, 5xbanana",
@@ -1281,7 +1279,7 @@ def test_init_maxEarnings():
     variable_constraints = True
 
     with patch(
-        "batches_optimization.lib_app._styled_prompt",
+        "BatchMonitor.lib_app._styled_prompt",
         side_effect=[
             "all",
             "Continuous",
@@ -1328,7 +1326,7 @@ def test_init_maxEarnings():
 
 
 def test_init_maxEarnings_without_option():
-    """Test of the _init_maxEarnings function of the batches_optimization application without option"""
+    """Test of the _init_maxEarnings function of the BatchMonitor application without option"""
 
     batch_list = BatchCollection.from_str(
         "batch1: 1; 2xapple, 5xbanana",
@@ -1341,7 +1339,7 @@ def test_init_maxEarnings_without_option():
     rates = False
     variable_constraints = False
 
-    with patch("batches_optimization.lib_app._styled_prompt"):
+    with patch("BatchMonitor.lib_app._styled_prompt"):
         result = _init_maxEarnings(
             number_of_batches,
             batch_list,
@@ -1364,7 +1362,7 @@ def test_init_maxEarnings_without_option():
 
 
 def test_verify_valid_ilr():
-    """Test of the _verify_valid_ilr function of the batches_optimization application"""
+    """Test of the _verify_valid_ilr function of the BatchMonitor application"""
 
     bc = BatchCollection.from_str(
         "batch1: 1; 2xapple, 5xbanana",

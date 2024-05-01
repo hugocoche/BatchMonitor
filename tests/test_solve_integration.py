@@ -1,6 +1,6 @@
 """Description:
 
-Integration tests for the solve commands of batches_optimization application"""
+Integration tests for the solve commands of BatchMonitor application"""
 
 import os
 import sys
@@ -59,10 +59,10 @@ def change_dir():
 def test_solving_problem_choice(bc_fixture, ilr_fixture):
     """Test the _solving_problem_choice function"""
 
-    with patch("batches_optimization.__main__._stages_progress_mbe") as mock_mbe, patch(
-        "batches_optimization.__main__._stages_progress_me"
+    with patch("BatchMonitor.__main__._stages_progress_mbe") as mock_mbe, patch(
+        "BatchMonitor.__main__._stages_progress_me"
     ) as mock_me, patch(
-        "batches_optimization.__main__._stages_progress_both"
+        "BatchMonitor.__main__._stages_progress_both"
     ) as mock_both, patch(
         "sys.stdout", new=StringIO()
     ):
@@ -109,19 +109,19 @@ def test_stages_progress_mbe(bc_fixture, ilr_fixture, bl_fixture):
     """Test the _stages_progress_mbe function"""
 
     with patch(
-        "batches_optimization.lib_app._init_minBatchExpense",
+        "BatchMonitor.lib_app._init_minBatchExpense",
         return_value=["Continuous", 0, 10000000, 1, 0, 0, 0, None],
     ) as mock_init, patch(
-        "batches_optimization.lib_app._minBatchExpense_resolution"
+        "BatchMonitor.lib_app._minBatchExpense_resolution"
     ) as mock_resolution, patch(
-        "batches_optimization.lib_app.format_batch_collection",
+        "BatchMonitor.lib_app.format_batch_collection",
         return_value="batch_collection",
     ) as mock_format_bc, patch(
-        "batches_optimization.lib_app.format_itemlistRequest", return_value="ilr"
+        "BatchMonitor.lib_app.format_itemlistRequest", return_value="ilr"
     ) as mock_format_ilr, patch(
-        "batches_optimization.lib_app._printed_mbe", return_value="result"
+        "BatchMonitor.lib_app._printed_mbe", return_value="result"
     ) as mock_printed, patch(
-        "batches_optimization.lib_app.format_batch_lists", return_value="batch_lists"
+        "BatchMonitor.lib_app.format_batch_lists", return_value="batch_lists"
     ) as mock_format_batch_lists:
 
         _stages_progress_mbe(
@@ -156,19 +156,19 @@ def test_stages_progress_me(bc_fixture, ilr_fixture, bl_fixture):
     """Test the _stages_progress_me function"""
 
     with patch(
-        "batches_optimization.lib_app._init_maxEarnings",
+        "BatchMonitor.lib_app._init_maxEarnings",
         return_value=["Continuous", 0, 10000000, 1, 0, 0, 0, None],
     ) as mock_init, patch(
-        "batches_optimization.lib_app._maxEarnings_resolution"
+        "BatchMonitor.lib_app._maxEarnings_resolution"
     ) as mock_resolution, patch(
-        "batches_optimization.lib_app.format_batch_collection",
+        "BatchMonitor.lib_app.format_batch_collection",
         return_value="batch_collection",
     ) as mock_format_bc, patch(
-        "batches_optimization.lib_app.format_itemlistRequest", return_value="ilr"
+        "BatchMonitor.lib_app.format_itemlistRequest", return_value="ilr"
     ) as mock_format_ilr, patch(
-        "batches_optimization.lib_app._printed_me", return_value="result"
+        "BatchMonitor.lib_app._printed_me", return_value="result"
     ) as mock_printed, patch(
-        "batches_optimization.lib_app.format_batch_lists", return_value="batch_lists"
+        "BatchMonitor.lib_app.format_batch_lists", return_value="batch_lists"
     ) as mock_format_batch_lists:
 
         _stages_progress_me(
@@ -203,24 +203,24 @@ def test_stages_progress_both(bc_fixture, ilr_fixture, bl_fixture):
     """Test the _stages_progress_both function"""
 
     with patch(
-        "batches_optimization.lib_app._init_minBatchExpense",
+        "BatchMonitor.lib_app._init_minBatchExpense",
         return_value=["Continuous", 0, 10000000, 1, 0, 0, 0, None],
     ) as mock_init_mbe, patch(
-        "batches_optimization.lib_app._init_maxEarnings",
+        "BatchMonitor.lib_app._init_maxEarnings",
         return_value=["Continuous", 0, 10000000, 1, 0, 0, 0, None],
     ) as mock_init_me, patch(
-        "batches_optimization.lib_app._minBatchExpense_resolution"
+        "BatchMonitor.lib_app._minBatchExpense_resolution"
     ) as mock_mbe_resolution, patch(
-        "batches_optimization.lib_app._maxEarnings_resolution"
+        "BatchMonitor.lib_app._maxEarnings_resolution"
     ) as mock_me_resolution, patch(
-        "batches_optimization.lib_app.format_batch_collection",
+        "BatchMonitor.lib_app.format_batch_collection",
         return_value="batch_collection",
     ) as mock_format_bc, patch(
-        "batches_optimization.lib_app.format_itemlistRequest", return_value="ilr"
+        "BatchMonitor.lib_app.format_itemlistRequest", return_value="ilr"
     ) as mock_format_ilr, patch(
-        "batches_optimization.lib_app._printed_both", return_value="result"
+        "BatchMonitor.lib_app._printed_both", return_value="result"
     ) as mock_printed, patch(
-        "batches_optimization.lib_app.format_batch_lists", return_value="batch_lists"
+        "BatchMonitor.lib_app.format_batch_lists", return_value="batch_lists"
     ) as mock_format_batch_lists:
 
         _stages_progress_both(
@@ -256,8 +256,8 @@ def test_stages_progress_both(bc_fixture, ilr_fixture, bl_fixture):
 def test_maxEarnings_resolution(bc_fixture, ilr_fixture):
     """Test the _maxEarnings_resolution function"""
 
-    with patch("batches_optimization.lib_app.maxEarnings") as mock_maxEarnings, patch(
-        "batches_optimization.lib_app.format_maxEarnings", return_value="result"
+    with patch("BatchMonitor.lib_app.maxEarnings") as mock_maxEarnings, patch(
+        "BatchMonitor.lib_app.format_maxEarnings", return_value="result"
     ) as mock_format_maxEarnings:
 
         _maxEarnings_resolution(
@@ -280,10 +280,8 @@ def test_maxEarnings_resolution(bc_fixture, ilr_fixture):
 def test_minBatchExpense_resolution(bc_fixture, ilr_fixture):
     """Test the _minBatchExpense_resolution function"""
 
-    with patch(
-        "batches_optimization.lib_app.minBatchExpense"
-    ) as mock_minBatchExpense, patch(
-        "batches_optimization.lib_app.format_minBatchExpense", return_value="result"
+    with patch("BatchMonitor.lib_app.minBatchExpense") as mock_minBatchExpense, patch(
+        "BatchMonitor.lib_app.format_minBatchExpense", return_value="result"
     ) as mock_format_minBatchExpense:
 
         _minBatchExpense_resolution(
@@ -307,13 +305,13 @@ def test_solve_mbe(bc_fixture, ilr_fixture):
     """Test the solve function"""
 
     with patch(
-        "batches_optimization.__main__._init_solve",
+        "BatchMonitor.__main__._init_solve",
         return_value=("BatchCollection", "minBatchExpense"),
     ) as mock_init_solve, patch(
-        "batches_optimization.__main__._create_object_from_json",
+        "BatchMonitor.__main__._create_object_from_json",
         return_value=(bc_fixture, ilr_fixture, 2),
     ) as mock_create_object_from_json, patch(
-        "batches_optimization.__main__._solving_problem_choice"
+        "BatchMonitor.__main__._solving_problem_choice"
     ) as mock_solving_problem_choice:
 
         solve(
@@ -354,13 +352,13 @@ def test_solve_me(bc_fixture, ilr_fixture):
     """Test the solve function"""
 
     with patch(
-        "batches_optimization.__main__._init_solve",
+        "BatchMonitor.__main__._init_solve",
         return_value=("BatchCollection", "maxEarnings"),
     ) as mock_init_solve, patch(
-        "batches_optimization.__main__._create_object_from_json",
+        "BatchMonitor.__main__._create_object_from_json",
         return_value=(bc_fixture, ilr_fixture, 2),
     ) as mock_create_object_from_json, patch(
-        "batches_optimization.__main__._solving_problem_choice"
+        "BatchMonitor.__main__._solving_problem_choice"
     ) as mock_solving_problem_choice:
 
         solve(
@@ -401,13 +399,13 @@ def test_solve_both(bc_fixture, ilr_fixture):
     """Test the solve function"""
 
     with patch(
-        "batches_optimization.__main__._init_solve",
+        "BatchMonitor.__main__._init_solve",
         return_value=("BatchCollection", "both"),
     ) as mock_init_solve, patch(
-        "batches_optimization.__main__._create_object_from_json",
+        "BatchMonitor.__main__._create_object_from_json",
         return_value=(bc_fixture, ilr_fixture, 2),
     ) as mock_create_object_from_json, patch(
-        "batches_optimization.__main__._solving_problem_choice"
+        "BatchMonitor.__main__._solving_problem_choice"
     ) as mock_solving_problem_choice:
 
         solve(
@@ -447,22 +445,22 @@ def test_solve_both(bc_fixture, ilr_fixture):
 def test_init_and_run_me_bc(bc_fixture, ilr_fixture):
     """Test the init_and_run function"""
 
-    with patch("batches_optimization.__main__._init_app") as mock_init_app, patch(
-        "batches_optimization.__main__._init_problem", return_value="maxEarnings"
+    with patch("BatchMonitor.__main__._init_app") as mock_init_app, patch(
+        "BatchMonitor.__main__._init_problem", return_value="maxEarnings"
     ) as mock_init_problem, patch(
-        "batches_optimization.__main__._init_batchtype", return_value=(2, bc_fixture)
+        "BatchMonitor.__main__._init_batchtype", return_value=(2, bc_fixture)
     ) as mock_init_batchtype, patch(
-        "batches_optimization.__main__._item_request_creation", return_value=ilr_fixture
+        "BatchMonitor.__main__._item_request_creation", return_value=ilr_fixture
     ) as mock_item_request_creation, patch(
-        "batches_optimization.__main__._verify_valid_ilr", return_value=True
+        "BatchMonitor.__main__._verify_valid_ilr", return_value=True
     ) as mock_verify_valid_ilr, patch(
-        "batches_optimization.__main__._stages_progress_me"
+        "BatchMonitor.__main__._stages_progress_me"
     ) as mock_stages_progress_me, patch(
-        "batches_optimization.__main__._styled_prompt", side_effect=["no", "no"]
+        "BatchMonitor.__main__._styled_prompt", side_effect=["no", "no"]
     ) as mock_styled_prompt, patch(
-        "batches_optimization.__main__._thanks"
+        "BatchMonitor.__main__._thanks"
     ) as mock_thanks, patch(
-        "batches_optimization.lib_app._style_h2"
+        "BatchMonitor.lib_app._style_h2"
     ) as mock_style_h2:
 
         with pytest.raises(SystemExit):
@@ -482,22 +480,22 @@ def test_init_and_run_me_bc(bc_fixture, ilr_fixture):
 def test_init_and_run_mbe_bc(bc_fixture, ilr_fixture):
     """Test the init_and_run function"""
 
-    with patch("batches_optimization.__main__._init_app") as mock_init_app, patch(
-        "batches_optimization.__main__._init_problem", return_value="minBatchExpense"
+    with patch("BatchMonitor.__main__._init_app") as mock_init_app, patch(
+        "BatchMonitor.__main__._init_problem", return_value="minBatchExpense"
     ) as mock_init_problem, patch(
-        "batches_optimization.__main__._init_batchtype", return_value=(2, bc_fixture)
+        "BatchMonitor.__main__._init_batchtype", return_value=(2, bc_fixture)
     ) as mock_init_batchtype, patch(
-        "batches_optimization.__main__._item_request_creation", return_value=ilr_fixture
+        "BatchMonitor.__main__._item_request_creation", return_value=ilr_fixture
     ) as mock_item_request_creation, patch(
-        "batches_optimization.__main__._verify_valid_ilr", return_value=True
+        "BatchMonitor.__main__._verify_valid_ilr", return_value=True
     ) as mock_verify_valid_ilr, patch(
-        "batches_optimization.__main__._stages_progress_mbe"
+        "BatchMonitor.__main__._stages_progress_mbe"
     ) as mock_stages_progress_mbe, patch(
-        "batches_optimization.__main__._styled_prompt", side_effect=["no", "no"]
+        "BatchMonitor.__main__._styled_prompt", side_effect=["no", "no"]
     ) as mock_styled_prompt, patch(
-        "batches_optimization.__main__._thanks"
+        "BatchMonitor.__main__._thanks"
     ) as mock_thanks, patch(
-        "batches_optimization.lib_app._style_h2"
+        "BatchMonitor.lib_app._style_h2"
     ) as mock_style_h2:
 
         with pytest.raises(SystemExit):
@@ -517,22 +515,22 @@ def test_init_and_run_mbe_bc(bc_fixture, ilr_fixture):
 def test_init_and_run_both_bc(bc_fixture, ilr_fixture):
     """Test the init_and_run function"""
 
-    with patch("batches_optimization.__main__._init_app") as mock_init_app, patch(
-        "batches_optimization.__main__._init_problem", return_value="both"
+    with patch("BatchMonitor.__main__._init_app") as mock_init_app, patch(
+        "BatchMonitor.__main__._init_problem", return_value="both"
     ) as mock_init_problem, patch(
-        "batches_optimization.__main__._init_batchtype", return_value=(2, bc_fixture)
+        "BatchMonitor.__main__._init_batchtype", return_value=(2, bc_fixture)
     ) as mock_init_batchtype, patch(
-        "batches_optimization.__main__._item_request_creation", return_value=ilr_fixture
+        "BatchMonitor.__main__._item_request_creation", return_value=ilr_fixture
     ) as mock_item_request_creation, patch(
-        "batches_optimization.__main__._verify_valid_ilr", return_value=True
+        "BatchMonitor.__main__._verify_valid_ilr", return_value=True
     ) as mock_verify_valid_ilr, patch(
-        "batches_optimization.__main__._stages_progress_both"
+        "BatchMonitor.__main__._stages_progress_both"
     ) as mock_stages_progress_both, patch(
-        "batches_optimization.__main__._styled_prompt", side_effect=["no", "no"]
+        "BatchMonitor.__main__._styled_prompt", side_effect=["no", "no"]
     ) as mock_styled_prompt, patch(
-        "batches_optimization.__main__._thanks"
+        "BatchMonitor.__main__._thanks"
     ) as mock_thanks, patch(
-        "batches_optimization.lib_app._style_h2"
+        "BatchMonitor.lib_app._style_h2"
     ) as mock_style_h2:
 
         with pytest.raises(SystemExit):
@@ -552,22 +550,22 @@ def test_init_and_run_both_bc(bc_fixture, ilr_fixture):
 def test_init_and_run_mbe_bl(bl_fixture, ilr_fixture):
     """Test the init_and_run function"""
 
-    with patch("batches_optimization.__main__._init_app") as mock_init_app, patch(
-        "batches_optimization.__main__._init_problem", return_value="minBatchExpense"
+    with patch("BatchMonitor.__main__._init_app") as mock_init_app, patch(
+        "BatchMonitor.__main__._init_problem", return_value="minBatchExpense"
     ) as mock_init_problem, patch(
-        "batches_optimization.__main__._init_batchtype", return_value=(2, bl_fixture)
+        "BatchMonitor.__main__._init_batchtype", return_value=(2, bl_fixture)
     ) as mock_init_batchtype, patch(
-        "batches_optimization.__main__._item_request_creation", return_value=ilr_fixture
+        "BatchMonitor.__main__._item_request_creation", return_value=ilr_fixture
     ) as mock_item_request_creation, patch(
-        "batches_optimization.__main__._verify_valid_ilr", return_value=True
+        "BatchMonitor.__main__._verify_valid_ilr", return_value=True
     ) as mock_verify_valid_ilr, patch(
-        "batches_optimization.__main__._stages_progress_mbe"
+        "BatchMonitor.__main__._stages_progress_mbe"
     ) as mock_stages_progress_mbe, patch(
-        "batches_optimization.__main__._styled_prompt", side_effect=["no", "no"]
+        "BatchMonitor.__main__._styled_prompt", side_effect=["no", "no"]
     ) as mock_styled_prompt, patch(
-        "batches_optimization.__main__._thanks"
+        "BatchMonitor.__main__._thanks"
     ) as mock_thanks, patch(
-        "batches_optimization.lib_app._style_h2"
+        "BatchMonitor.lib_app._style_h2"
     ) as mock_style_h2:
 
         with pytest.raises(SystemExit):
@@ -587,22 +585,22 @@ def test_init_and_run_mbe_bl(bl_fixture, ilr_fixture):
 def test_init_and_run_both_bl(bl_fixture, ilr_fixture):
     """Test the init_and_run function"""
 
-    with patch("batches_optimization.__main__._init_app") as mock_init_app, patch(
-        "batches_optimization.__main__._init_problem", return_value="both"
+    with patch("BatchMonitor.__main__._init_app") as mock_init_app, patch(
+        "BatchMonitor.__main__._init_problem", return_value="both"
     ) as mock_init_problem, patch(
-        "batches_optimization.__main__._init_batchtype", return_value=(2, bl_fixture)
+        "BatchMonitor.__main__._init_batchtype", return_value=(2, bl_fixture)
     ) as mock_init_batchtype, patch(
-        "batches_optimization.__main__._item_request_creation", return_value=ilr_fixture
+        "BatchMonitor.__main__._item_request_creation", return_value=ilr_fixture
     ) as mock_item_request_creation, patch(
-        "batches_optimization.__main__._verify_valid_ilr", return_value=True
+        "BatchMonitor.__main__._verify_valid_ilr", return_value=True
     ) as mock_verify_valid_ilr, patch(
-        "batches_optimization.__main__._stages_progress_both"
+        "BatchMonitor.__main__._stages_progress_both"
     ) as mock_stages_progress_both, patch(
-        "batches_optimization.__main__._styled_prompt", side_effect=["no", "no"]
+        "BatchMonitor.__main__._styled_prompt", side_effect=["no", "no"]
     ) as mock_styled_prompt, patch(
-        "batches_optimization.__main__._thanks"
+        "BatchMonitor.__main__._thanks"
     ) as mock_thanks, patch(
-        "batches_optimization.lib_app._style_h2"
+        "BatchMonitor.lib_app._style_h2"
     ) as mock_style_h2:
 
         with pytest.raises(SystemExit):
@@ -622,22 +620,22 @@ def test_init_and_run_both_bl(bl_fixture, ilr_fixture):
 def test_init_and_run_me_bl(bl_fixture, ilr_fixture):
     """Test the init_and_run function"""
 
-    with patch("batches_optimization.__main__._init_app") as mock_init_app, patch(
-        "batches_optimization.__main__._init_problem", return_value="maxEarnings"
+    with patch("BatchMonitor.__main__._init_app") as mock_init_app, patch(
+        "BatchMonitor.__main__._init_problem", return_value="maxEarnings"
     ) as mock_init_problem, patch(
-        "batches_optimization.__main__._init_batchtype", return_value=(2, bl_fixture)
+        "BatchMonitor.__main__._init_batchtype", return_value=(2, bl_fixture)
     ) as mock_init_batchtype, patch(
-        "batches_optimization.__main__._item_request_creation", return_value=ilr_fixture
+        "BatchMonitor.__main__._item_request_creation", return_value=ilr_fixture
     ) as mock_item_request_creation, patch(
-        "batches_optimization.__main__._verify_valid_ilr", return_value=True
+        "BatchMonitor.__main__._verify_valid_ilr", return_value=True
     ) as mock_verify_valid_ilr, patch(
-        "batches_optimization.__main__._stages_progress_me"
+        "BatchMonitor.__main__._stages_progress_me"
     ) as mock_stages_progress_me, patch(
-        "batches_optimization.__main__._styled_prompt", side_effect=["no", "no"]
+        "BatchMonitor.__main__._styled_prompt", side_effect=["no", "no"]
     ) as mock_styled_prompt, patch(
-        "batches_optimization.__main__._thanks"
+        "BatchMonitor.__main__._thanks"
     ) as mock_thanks, patch(
-        "batches_optimization.lib_app._style_h2"
+        "BatchMonitor.lib_app._style_h2"
     ) as mock_style_h2:
 
         with pytest.raises(SystemExit):
@@ -658,19 +656,19 @@ def test_init_and_run_mbe_bc_invalid_ilr(bc_fixture, ilr_fixture):
     """Test the init_and_run function"""
 
     bad_ilr = ItemListRequest.from_str("1-3 of apple", "4-5 of orange")
-    with patch("batches_optimization.__main__._init_app") as mock_init_app, patch(
-        "batches_optimization.__main__._init_problem", return_value="minBatchExpense"
+    with patch("BatchMonitor.__main__._init_app") as mock_init_app, patch(
+        "BatchMonitor.__main__._init_problem", return_value="minBatchExpense"
     ) as mock_init_problem, patch(
-        "batches_optimization.__main__._init_batchtype", return_value=(2, bc_fixture)
+        "BatchMonitor.__main__._init_batchtype", return_value=(2, bc_fixture)
     ) as mock_init_batchtype, patch(
-        "batches_optimization.__main__._item_request_creation",
+        "BatchMonitor.__main__._item_request_creation",
         side_effect=[bad_ilr, ilr_fixture],
     ) as mock_item_request_creation, patch(
-        "batches_optimization.__main__._verify_valid_ilr", side_effect=[False, True]
+        "BatchMonitor.__main__._verify_valid_ilr", side_effect=[False, True]
     ) as mock_verify_valid_ilr, patch(
-        "batches_optimization.__main__._styled_prompt", side_effect=["no", "no"]
+        "BatchMonitor.__main__._styled_prompt", side_effect=["no", "no"]
     ) as mock_styled_prompt, patch(
-        "batches_optimization.lib_app._style_h2"
+        "BatchMonitor.lib_app._style_h2"
     ) as mock_style_h2:
 
         with pytest.raises(SystemExit):
