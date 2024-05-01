@@ -1,0 +1,8 @@
+.pyc
+.coverage
+.pytest_cache
+dist
+__pycache__
+docs/.doctrees
+docs/builddir
+test.ipynb

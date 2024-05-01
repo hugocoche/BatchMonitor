@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "batches-optimization"
+version = "0.1.0"
+description = ""
+authors = [
+    "Hugo COCHEREAU <hugo.cochereau@hotmail.com>",
+    "Gregory JAILLET <greg.jlt03@gmail.com>",
+]
+readme = "README.md"
+packages = [{ include = "BatchMonitor" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pyserde = "^0.16.0"
+prettytable = "^3.10.0"
+pulp = "^2.8.0"
+typer = "^0.12.3"
+rich = "^13.7.1"
+markdown = "^3.6"
+pydantic = "^2.7.1"
+numpy = "^1.26.4"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+pytest-cov = "^5.0.0"
+ruff = "^0.3.7"
+mypy = "^1.9.0"
+isort = "^5.13.2"
+pre-commit = "^3.7.0"
+sphinx = "^7.2.6"
+flake8 = "^7.0.0"
+black = "^24.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:Some batches contain weapons not present in other batches. They have been added with a quantity of 0.:UserWarning",
+    "ignore:Spaces are not permitted in the name. Converted to '_':UserWarning",
+    'ignore:invalid escape sequence "\ ":SyntaxWarning',
+]
+addopts = "--rootdir=."
