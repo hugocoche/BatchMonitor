@@ -616,13 +616,13 @@ def minBatchExpense(
 
 def _return_minBatchExpense(
     batches: BatchCollection | BatchLists,
-    batches_copy: BatchCollection | BatchLists,
+    batches_copy: BatchCollection,
     variables: pulp.LpVariable,
     prob: pulp.LpProblem,
 ) -> dict[str, str | float | int | dict[str, float | int]] | dict[str, str]:
     """Returns of the minBatchExpense function"""
 
-    x = x = {
+    x = {
         batch.name: pulp.value(variables[batch.name])
         for batch in batches_copy
         if isinstance(batch, Batch)
@@ -637,6 +637,7 @@ def _return_minBatchExpense(
             "Expense per seller": _expense_per_each_seller(batches_copy, x),
         }
     else:
+        # raise ValueError(f"batches is the type {type(batches_copy)}")
         return {
             "Status": pulp.LpStatus[prob.status],
             "Total cost": pulp.value(prob.objective),

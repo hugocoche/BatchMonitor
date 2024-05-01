@@ -1686,7 +1686,7 @@ class BatchLists:
                         [batch for batch in batches]
                     )
 
-            self.batch_collections = list(seller_to_batches.values())
+            self.batchlists = list(seller_to_batches.values())
 
             for batches in self:
                 for batch in batches:

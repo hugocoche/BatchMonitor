@@ -28,8 +28,8 @@ def test_animate_progress_bar():
     mock_progress = MagicMock()
     mock_sleep = MagicMock()
 
-    with patch("batches_optimization.lib_app.console.print", mock_console_print), patch(
-        "batches_optimization.lib_app.Progress", mock_progress
+    with patch("BatchMonitor.lib_app.console.print", mock_console_print), patch(
+        "BatchMonitor.lib_app.Progress", mock_progress
     ), patch("time.sleep", mock_sleep):
 
         _animate_progress_bar("test_object", 10)

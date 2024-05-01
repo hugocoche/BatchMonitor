@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from batches_optimization import BatchLists, BatchCollection, Batch, Item_in_batch
+from BatchMonitor import BatchLists, BatchCollection, Batch, Item_in_batch
 import pickle
 import os
 
@@ -46,7 +46,13 @@ if (
     if "batch_collection" not in st.session_state:
         st.session_state["batch_collection"] = None
 
-    d1, d2, _ = st.columns([1, 1, 1,])
+    d1, d2, _ = st.columns(
+        [
+            1,
+            1,
+            1,
+        ]
+    )
 
     if d1.button("Create a batch"):
         if Seller_name and Batch_Name and Batch_Value and Item_Name and Item_Value:
@@ -109,14 +115,15 @@ if (
                         for batch in batchcollection.batch_list:
                             if batch.name == Batch_Name and batch.price == Batch_Value:
                                 batch.items.append(Item_in_batch(Item_Name, Item_Value))
-                for batch in st.session_state["all_batches"]:
+                for sous_liste in st.session_state["all_batches"]:
                     if (
-                        batch["Batch Name"] == Batch_Name
-                        and batch["Batch Value"] == Batch_Value
+                        sous_liste["Batch Name"] == Batch_Name
+                        and sous_liste["Batch Value"] == Batch_Value
                     ):
-                        batch["Items"].append(
-                            {"Item Name": Item_Name, "Item Value": Item_Value}
-                        )
+                        if isinstance(sous_liste["Items"], list):
+                            sous_liste["Items"].append(
+                                {"Item Name": Item_Name, "Item Value": Item_Value}
+                            )
                 st.rerun()
         else:
             st.write("Please fill all the fields")
@@ -139,7 +146,7 @@ if (
 
     for batch in st.session_state["all_batches"]:
         st.markdown(
-            f"#### {Seller_name} - {batch['Batch Name']} - Value : {round(batch['Batch Value'])} dollars"
+            f"#### {Seller_name} - {batch['Batch Name']} - Value : {batch['Batch Value']} dollars"
         )
         if "Items" in batch:
             batch_info = pd.DataFrame(batch["Items"])
@@ -300,22 +307,23 @@ else:
                                             batch.items.append(
                                                 Item_in_batch(Item_Name, Item_Value)
                                             )
-                            for batch in st.session_state["all_batches"]:
+                            for sous_liste in st.session_state["all_batches"]:
                                 if (
-                                    batch["Batch Name"] == Batch_Name
-                                    and batch["Batch Value"] == Batch_Value
+                                    sous_liste["Batch Name"] == Batch_Name
+                                    and sous_liste["Batch Value"] == Batch_Value
                                 ):
-                                    batch["Items"].append(
-                                        {
-                                            "Item Name": Item_Name,
-                                            "Item Value": Item_Value,
-                                        }
-                                    )
+                                    if isinstance(sous_liste["Items"], list):
+                                        sous_liste["Items"].append(
+                                            {
+                                                "Item Name": Item_Name,
+                                                "Item Value": Item_Value,
+                                            }
+                                        )
                 st.rerun()
 
             for batch in st.session_state["all_batches"]:
                 st.markdown(
-                    f"#### {batch['Seller']} - {batch['Batch Name']} - Value : {round(batch['Batch Value'])} dollars"
+                    f"#### {batch['Seller']} - {batch['Batch Name']} - Value : {batch['Batch Value']} dollars"
                 )
                 if "Items" in batch:
                     batch_info = pd.DataFrame(batch["Items"])

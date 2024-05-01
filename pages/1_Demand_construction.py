@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-from batches_optimization import ItemListRequest, ItemRequest
+from BatchMonitor import ItemListRequest, ItemRequest
 import pickle
 
 if (
@@ -109,7 +109,7 @@ if (
                 pickle.dump(st.session_state["Demand"], d)
             st.write("Demand exported ;) !")
         else:
-            st.write(f"object is not an instance of ItemListRequest")
+            st.write("object is not an instance of ItemListRequest")
             st.write(f"{type(st.session_state['Demand'])}")
 else:
     st.write(
@@ -198,4 +198,4 @@ else:
                 pickle.dump(st.session_state["Demand"], d)
             st.write("Demand exported ;) !")
         else:
-            st.write(f"object is not an instance of ItemListRequest")
+            st.write("object is not an instance of ItemListRequest")

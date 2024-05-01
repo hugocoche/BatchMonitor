@@ -1,13 +1,13 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import altair as alt
 import pickle
 import copy
 import os
-from batches_optimization import (
+from BatchMonitor import (
     BatchLists,
+    BatchCollection,
     minBatchExpense,
     maxEarnings,
     ItemListRequest,
@@ -23,7 +23,7 @@ def original_prices(Batches: BatchLists, index) -> list:
             batch.price for batch in Batches.batchlists[index].batch_list
         ]
 
-        return st.session_state["original_prices"]
+    return st.session_state["original_prices"]
 
 
 if st.sidebar.button("Load the the demand and the batches"):
@@ -36,15 +36,8 @@ if st.sidebar.button("Load the the demand and the batches"):
     else:
         st.write("You need to export the demand and the batches first !")
 
-if "price" not in st.session_state:
-    st.session_state["price"] = 0
-
-if "Batches" in st.session_state and st.session_state["Batches"] is not None:
-    Batches_copy = copy.deepcopy(st.session_state["Batches"])
-    st.session_state["database"] = createDatabaseFromBatchLists(Batches_copy)
-    st.write("Database created from the batch list ")
-
 if st.sidebar.button("Clear All"):
+    default_values: list[tuple]
     default_values = [
         ("Batches", None),
         ("Demand", None),
@@ -66,7 +59,13 @@ if st.sidebar.button("Clear All"):
             st.session_state[key] = default_value
     st.rerun()
 
-if "database" in st.session_state and st.session_state["database"] is not None:
+if "price" not in st.session_state:
+    st.session_state["price"] = 0
+
+if "Batches" in st.session_state and st.session_state["Batches"] is not None:
+    Batches_copy = copy.deepcopy(st.session_state["Batches"])
+    st.session_state["database"] = createDatabaseFromBatchLists(Batches_copy)
+    st.write("Database created from the batch list ")
     if len(st.session_state["database"].columns) < 12:
         st.table(st.session_state["database"])
     else:
@@ -74,7 +73,7 @@ if "database" in st.session_state and st.session_state["database"] is not None:
 
 
 @st.cache_data(experimental_allow_widgets=True, show_spinner=False)
-def basic_graph(data: pd.DataFrame) -> plt:
+def basic_graph(data: pd.DataFrame) -> alt.Chart:
     st.markdown("#### Visualisation of the batches")
 
     options = list(st.session_state["database"].index[:-1])
@@ -174,8 +173,8 @@ if (
         ("Maximum_Expense", None),
         ("Minimum_Benefit", None),
         ("Maximum_Benefit", None),
-        ("price_constraints", {}),
-        ("batch_constraints", {}),
+        ("price_constraints", dict()),
+        ("batch_constraints", dict()),
         ("category_of_variables", "Continuous"),
     ]
 
@@ -427,13 +426,13 @@ if (
 
     """Variation of the prices of the lots."""
     if "Mini" and "Maxi" and "step" not in st.session_state:
-        st.session_state["Mini"] = None
-        st.session_state["Maxi"] = None
-        st.session_state["step"] = None
+        st.session_state["Mini"] = 1
+        st.session_state["Maxi"] = -1
+        st.session_state["step"] = 0
 
     a1, a2, a3, _ = st.columns([1, 1, 1, 1])
     st.session_state["Mini"] = a1.number_input(
-        "Minimum", value=-1, max_value=st.session_state["Maxi"]
+        "Minimum", value=-1, max_value=st.session_state.get("Maxi", 1)
     )
     st.session_state["Maxi"] = a2.number_input(
         "Maximum", value=1, min_value=st.session_state["Mini"]
@@ -464,17 +463,21 @@ if (
     )
 
     if seller == "All":
-        Batches = batch_list_global(st.session_state["database"]).batchlists[0]
-        og_price = [batch.price for batch in Batches.batch_list]
+        st.session_state["Batches_used"] = batch_list_global(
+            st.session_state["database"]
+        ).batchlists[0]
+        og_price = [
+            batch.price for batch in st.session_state["Batches_used"].batch_list
+        ]
     else:
         index = indice_batch_current_seller(st.session_state["Batches"], seller)
-        Batches = st.session_state["Batches"].batchlists[index]
+        st.session_state["Batches_used"] = st.session_state["Batches"].batchlists[index]
         og_price = original_prices(st.session_state["Batches"], index)
 
 
 @st.cache_data(experimental_allow_widgets=True, show_spinner=False)
 def graph_optimization_batches(
-    Batches: BatchLists,
+    Batches: BatchCollection,
     demand_list: ItemListRequest,
     price,
     og_price,
@@ -492,6 +495,7 @@ def graph_optimization_batches(
     price_constraints=None,
 ) -> alt.Chart:
     if Batches is not None and demand_list is not None and price is not None:
+
         for i in range(len(Batches.batch_list)):
             Batches.batch_list[i].price += int(price)
 
@@ -502,6 +506,7 @@ def graph_optimization_batches(
         data = []
 
         if method == "Primal":
+
             result = minBatchExpense(
                 Batches,
                 demand_list,
@@ -516,7 +521,7 @@ def graph_optimization_batches(
             )
 
             x = [
-                result["Batch quantities"][str(lot)]
+                result["Batch quantities"][lot]
                 for lot in result["Batch quantities"].keys()
             ]
 
@@ -524,6 +529,7 @@ def graph_optimization_batches(
                 data.append({"Name": Batches.batch_list[i].name, "Value": x[i]})
 
         elif method == "Dual":
+
             result = maxEarnings(
                 Batches,
                 demand_list,
@@ -537,10 +543,7 @@ def graph_optimization_batches(
                 price_constraints,
             )
 
-            x = [
-                result["Item prices"][str(item)]
-                for item in result["Item prices"].keys()
-            ]
+            x = [result["Item prices"][item] for item in result["Item prices"].keys()]
 
             for i in range(len(demand_list.items)):
                 data.append({"Name": demand_list.items[i].name, "Value": x[i]})
@@ -567,7 +570,7 @@ def graph_optimization_batches(
 
 @st.cache_data(experimental_allow_widgets=True, show_spinner=False)
 def batches_quantity_price_variation(
-    Batches: BatchLists,
+    Batches: BatchCollection,
     demand_list: ItemListRequest,
     og_price,
     mini,
@@ -581,10 +584,10 @@ def batches_quantity_price_variation(
     minimum_expense=None,
     maximum_expense=None,
     batch_constraints=None,
-) -> plt:
+) -> alt.Chart:
     if Batches is not None and demand_list is not None and Step is not None:
         batches = copy.deepcopy(Batches)
-
+        list_dict: dict[str, list]
         list_dict = {}
 
         for i in range(len(batches.batch_list)):
@@ -689,7 +692,7 @@ def batches_quantity_price_variation(
 
 @st.cache_data(experimental_allow_widgets=True, show_spinner=False)
 def item_quantity_batch_price_variation(
-    Batches: BatchLists,
+    Batches: BatchCollection,
     demand_list: ItemListRequest,
     og_price,
     mini,
@@ -703,7 +706,7 @@ def item_quantity_batch_price_variation(
     minimum_benefit=None,
     maximum_benefit=None,
     price_constraints=None,
-) -> plt:
+) -> alt.Chart:
     if (
         Batches is not None
         and demand_list is not None
@@ -711,8 +714,9 @@ def item_quantity_batch_price_variation(
         and mini < maxi
     ):
         batches = copy.deepcopy(Batches)
-
+        list_dict: dict[str, list]
         list_dict = {}
+        list_batch: dict[str, list]
         list_batch = {}
 
         for i in range(len(demand_list.items)):
@@ -826,7 +830,7 @@ if (
 ):
     st.markdown("#### Visualization of the Problem's Resolution")
     graph_optimization_batches(
-        Batches,
+        st.session_state["Batches_used"],
         st.session_state["Demand"],
         st.session_state["price"],
         og_price,
@@ -852,7 +856,7 @@ if (
             "You need to modify the minimum, maximum and step values to see the variation of the quantity of the batch"
         )
         batches_quantity_price_variation(
-            Batches,
+            st.session_state["Batches_used"],
             st.session_state["Demand"],
             og_price,
             st.session_state["Mini"],
@@ -875,7 +879,7 @@ if (
             "You need to modify the minimum, maximum and step values to see the variation of the price of the item"
         )
         item_quantity_batch_price_variation(
-            Batches,
+            st.session_state["Batches_used"],
             st.session_state["Demand"],
             og_price,
             st.session_state["Mini"],

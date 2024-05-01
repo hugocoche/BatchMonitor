@@ -48,7 +48,7 @@ def test_thanks():
 
     mock_console_print = MagicMock()
 
-    with patch("batches_optimization.lib_app.console.print", mock_console_print):
+    with patch("BatchMonitor.lib_app.console.print", mock_console_print):
         _thanks()
 
     mock_console_print.assert_any_call(

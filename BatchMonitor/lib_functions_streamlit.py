@@ -2,60 +2,36 @@
 Description: This file contains the functions used in the streamlit app to create the database and the batch list from the data.
 
 """
+
 import pandas as pd
-from batches_optimization import  BatchCollection, BatchLists, Item_in_batch, Batch
+from BatchMonitor import BatchCollection, BatchLists, Item_in_batch, Batch
 
 
 def createDatabaseFromBatchLists(data: BatchLists) -> pd.DataFrame:
     """Function allowing to create a database from the data. From the Batchlists class"""
 
-    new_data = data
-    for i in range(len(new_data.batchlists)):
-        for j in range(len(new_data.batchlists[i].batch_list)):
-            temp_dict = {
-                item.name: item.quantity_in_batch
-                for item in new_data.batchlists[i].batch_list[j].items
+    data_dict = {}
+    for batches in data.batchlists:
+        for batch in batches.batch_list:
+            data_dict[batches.seller + "_" + batch.name] = {
+                **{item.name: item.quantity_in_batch for item in batch.items},
+                "Total": batch.price,
             }
-            new_data.batchlists[i].batch_list[j].items = temp_dict
 
-    for i in range(len(new_data.batchlists)):
-        for j in range(len(new_data.batchlists[i].batch_list)):
-            new_data.batchlists[i].batch_list[j].items = dict(
-                sorted(new_data.batchlists[i].batch_list[j].items.items())
-            )
+    df = pd.DataFrame(data_dict)
 
-    numeraire = []
-    for batches in new_data.batchlists:
-        for batch in batches.batch_list:
-            row = list(batch.items.values())
-            row.append(batch.price)
-            numeraire.append(row)
+    return df
 
-    items = set()
-    for batches in new_data.batchlists:
-        for batch in batches.batch_list:
-            items.update(batch.items.keys())
-    items = sorted(list(items))
-    items.append("Total")
 
-    list_of_batches = []
-    for batches in new_data.batchlists:
-        for batch in batches.batch_list:
-            batch_name = batches.seller + "_" + batch.name
-            list_of_batches.append(str(batch_name))
-
-    df = pd.DataFrame(numeraire, columns=items, index=list_of_batches)
-
-    return df.transpose()
-
-def indice_batch_current_seller(Batches: BatchLists, seller) -> int:
+def indice_batch_current_seller(Batches: BatchLists, seller) -> int | None:
     if Batches is not None and seller is not None:
         for i, batchcollection in enumerate(Batches.batchlists):
             if batchcollection.seller == seller:
                 index = i
                 break
-
         return index
+    return None
+
 
 def batch_list_global(database):
     batches = None
