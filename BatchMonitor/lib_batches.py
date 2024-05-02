@@ -1973,7 +1973,7 @@ class BatchLists:
 
         >>> batch_lists = BatchLists([BatchCollection([Batch("batch 1", 1, [Item_in_batch("apple", 1), Item_in_batch("orange", 2)])], "seller1"), BatchCollection([Batch("batch 2", 2, [Item_in_batch("apple", 3), Item_in_batch("orange", 4)])], "seller2")])
 
-        >>> batch_lists.append(BatchCollection([Batch("batch 3", 3, [Item_in_batch("apple", 5), Item_in_batch("orange", 6)])], "seller3"))
+        >>> batch_lists.add_BatchCollection(BatchCollection([Batch("batch 3", 3, [Item_in_batch("apple", 5), Item_in_batch("orange", 6)])], "seller3"))
 
         BatchLists([BatchCollection(batches=[Batch(name='batch 1', price=1, items=[Item_in_batch(name='apple', quantity_in_batch=1), Item_in_batch(name='orange', quantity_in_batch=2)]), seller='seller1'), BatchCollection(batches=[Batch(name='batch 2', price=2, items=[Item_in_batch(name='apple', quantity_in_batch=3), Item_in_batch(name='orange', quantity_in_batch=4)]), seller='seller2'), BatchCollection(batches=[Batch(name='batch 3', price=3, items=[Item_in_batch(name='apple', quantity_in_batch=5), Item_in_batch(name='orange', quantity_in_batch=6)]), seller='seller3')])
 
@@ -1981,7 +1981,7 @@ class BatchLists:
 
         >>> batch_lists = BatchLists([BatchCollection([Batch("batch 1", 1, [Item_in_batch("apple", 1), Item_in_batch("orange", 2)])], "seller1"), BatchCollection([Batch("batch 2", 2, [Item_in_batch("apple", 3), Item_in_batch("orange", 4)])], "seller2")])
 
-        >>> batch_lists.append([BatchCollection([Batch("batch 3", 3, [Item_in_batch("apple", 5), Item_in_batch("orange", 6)])], "seller3"), BatchCollection([Batch("batch 4", 4, [Item_in_batch("apple", 7), Item_in_batch("orange", 8)])], "seller4")])
+        >>> batch_lists.add_BatchCollection([BatchCollection([Batch("batch 3", 3, [Item_in_batch("apple", 5), Item_in_batch("orange", 6)])], "seller3"), BatchCollection([Batch("batch 4", 4, [Item_in_batch("apple", 7), Item_in_batch("orange", 8)])], "seller4")])
         BatchLists([BatchCollection(batches=[Batch(name='batch 1', price=1, items=[Item_in_batch(name='apple', quantity_in_batch=1), Item_in_batch(name='orange', quantity_in_batch=2)]), seller='seller1'), BatchCollection(batches=[Batch(name='batch 2', price=2, items=[Item_in_batch(name='apple', quantity_in_batch=3), Item_in_batch(name='orange', quantity_in_batch=4)]), seller='seller2'), BatchCollection(batches=[Batch(name='batch 3', price=3, items=[Item_in_batch(name='apple', quantity_in_batch=5), Item_in_batch(name='orange', quantity_in_batch=6)]), seller='seller3'), BatchCollection(batches=[Batch(name='batch 4', price=4, items=[Item_in_batch(name='apple', quantity_in_batch=7), Item_in_batch(name='orange', quantity_in_batch=8)]), seller='seller4')])
         """
 
@@ -2030,7 +2030,7 @@ class BatchLists:
 
         >>> batch_lists = BatchLists([BatchCollection([Batch("batch 1", 1, [Item_in_batch("apple", 1), Item_in_batch("orange", 2)])], "seller1"), BatchCollection([Batch("batch 2", 2, [Item_in_batch("apple", 3), Item_in_batch("orange", 4)])], "seller2")])
 
-        >>> batch_lists.remove(index=0)
+        >>> batch_lists.remove_BatchCollection(index=0)
         BatchLists([BatchCollection(batches=[Batch(name='batch 2', price=2, items=[Item_in_batch(name='apple', quantity_in_batch=3), Item_in_batch(name='orange', quantity_in_batch=4)]), seller='seller2')])
 
         >>> batch_lists = BatchLists([BatchCollection([Batch("batch 1", 1, [Item_in_batch("apple", 1), Item_in_batch("orange", 2)])], "seller1"), BatchCollection([Batch("batch 2", 2, [Item_in_batch("apple", 3), Item_in_batch("orange", 4)])], "seller2")])
@@ -2042,7 +2042,9 @@ class BatchLists:
         You can also remove a list of BatchCollection objects :
 
         >>> batch_lists = BatchLists([BatchCollection([Batch("batch 1", 1, [Item_in_batch("apple", 1), Item_in_batch("orange", 2)])], "seller1"), BatchCollection([Batch("batch 2", 2, [Item_in_batch("apple", 3), Item_in_batch("orange", 4)])], "seller2")])
-        BatchLists([BatchCollection(batches=[Batch(name='batch 1', price=1, items=[Item_in_batch(name='apple', quantity_in_batch=1), Item_in_batch(name='orange', quantity_in_batch=2)]), seller='seller1'), BatchCollection(batches=[Batch(name='batch 2', price=2, items=[Item_in_batch(name='apple', quantity_in_batch=3), Item_in_batch(name='orange', quantity_in_batch=4)]), seller='seller2')])
+
+        >>> batch_lists.remove_BatchCollection(index=[0, 1])
+        BatchLists([])
         """
 
         if index is not None:
@@ -2154,7 +2156,7 @@ class BatchLists:
 
         Example :
 
-        >>> batch_lists = BatchLists().from_json("batchlists.json")
+        >>> batch_lists = BatchLists.from_json("batchlists.json")
         """
 
         try:
