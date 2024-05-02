@@ -10,7 +10,7 @@ readme = "README.md"
 packages = [{ include = "BatchMonitor" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 pyserde = "^0.16.0"
 prettytable = "^3.10.0"
 pulp = "^2.8.0"
