@@ -11,7 +11,7 @@ packages = [{ include = "BatchMonitor" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pyserde = "^0.16.0"
+pyserde = "^0.16.1"
 prettytable = "^3.10.0"
 pulp = "^2.8.0"
 typer = "^0.12.3"
@@ -29,10 +29,10 @@ numpy = "^1.26.4"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
 pytest-cov = "^5.0.0"
-ruff = "^0.3.7"
-mypy = "^1.9.0"
+ruff = "^0.4.2"
+mypy = "^1.10.0"
 pre-commit = "^3.7.0"
-sphinx = "^7.2.6"
+sphinx = "^7.3.7"
 flake8 = "^7.0.0"
 black = "^24.4.2"
 pathlib = "^1.0.1"
