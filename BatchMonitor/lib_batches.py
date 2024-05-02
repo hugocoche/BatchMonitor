@@ -14,7 +14,7 @@ You can import this library with the following command :
 
 Developed by :
     - [Hugo Cochereau](https://github.com/hugocoche)
-    - Gregory Jaillet
+    - [Gregory Jaillet](https://github.com/Greg-jllt)
 """
 
 import json
@@ -2177,8 +2177,9 @@ class BatchLists:
                         )
                     batch_to_add.items = items
                     bc.add_batch(batch_to_add)
-                bl.add_BatchCollection(bc)
-
+                if isinstance(bc, BatchCollection):
+                    bl.add_BatchCollection(bc)
+            bl.__post_init__()
             return bl
         except Exception as error:
             raise error

@@ -12,7 +12,7 @@ You can import this library with the following command :
 
 Developed by :
     - [Hugo Cochereau](https://github.com/hugocoche)
-    - Gregory Jaillet
+    - [Gregory Jaillet](https://github.com/Greg-jllt)
 """
 
 import json

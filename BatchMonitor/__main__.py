@@ -6,7 +6,7 @@ Module contains the user interface of the batches_optimization package.
 
 Developed by :
     - [Hugo Cochereau](https://github.com/hugocoche)
-    - Gregory Jaillet
+    - [Gregory Jaillet](https://github.com/Greg-jllt)
 
 """
 
@@ -468,8 +468,8 @@ def solve(
 @app.command()
 def API():
     """Run the streamlit app"""
-    
-    webbrowser.open('https://batchmonitor.streamlit.app/')
+
+    webbrowser.open("https://batchmonitor.streamlit.app/")
 
 
 if __name__ == "__main__":

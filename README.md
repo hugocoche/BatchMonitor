@@ -15,7 +15,7 @@ This module enables the resolution of various types of problems. We refer to one
 # Installation
 
 ```bash
-pip install BatchMonitor
+python -m pip install BatchMonitor
 ```
 # Utilisation guide
 
@@ -34,30 +34,32 @@ Those ItemRequest are regrouped in a `ItemListRequest` class.
 
 ## Call the CLI
 
-- If you've already installed the package, you will not need to initialize a virtual environnment to use the package
-- In the other case
-- Clone the package
+> If you've already installed the package, you won't need to initialize a virtual environment to use the package.
+- In the other case, follow these steps:
+- Clone the package with the following command:
 ```python
 git clone https://github.com/hugocoche/BatchMonitor.git
 ```
-- Open a terminal au dossier racine du package
+- Open a terminal in the root directory of the package with the command:
 ```python
 cd ./BatchMonitor
 ```
-- Initialize a virtual environment
+- Create a virtual environment and install the dependencies with the command:
 ```
-py -m poetry shell
+python -m poetry install
 ```
-- Install the depedencies
+- Activate the virtual environment with the command:
 ```python
-py -m poetry install
+python -m poetry shell
 ```
 
+- `(batchmonitor-py3.11)` indicates that you are in the virtual environment. This is the name of the virtual environment you have created or activated. When you see this in your terminal, it means that any Python commands you run will be executed in this virtual environment, and will have access to the dependencies installed in this environment.
+
+![](presentation/init_help.gif)
 
 
 
-
-- You can see the possible command :
+- You can see the possible command of the package :
 ```python
 python -m BatchMonitor --help
 ```
@@ -84,12 +86,11 @@ python -m BatchMonitor init-and-run --help
 
 ![](presentation/create_json_files.png)
 
-I recommend opening a terminal in the directory where your JSON files are located.
+> I recommend saving your JSON files in the directory where you are using your virtual environment.
 
 Now, we can view these objects.
 
 ```python
-cd repertory/of/your/json/files
 python -m BatchMonitor view-batches batch.json
 python -m BatchMonitor view-ilr ilr.json
 ```
@@ -105,6 +106,7 @@ python -m BatchMonitor solve --help
 
 
 Now, you are able to resolve your problem.
+> You need to initialize the BatchLists object or BatchCollection before the ItemListRequest object.
 
 ```python
 python -m BatchMonitor solve batch.json ilr.json
@@ -118,10 +120,9 @@ python -m BatchMonitor solve batch.json ilr.json
 
 ```python
 python -m BatchMonitor api
-python -m streamlit run BatchMonitor\Welcome.py
 ```
 
-![](presentation/presentation-gif.gif)
+![](presentation/api_presentation.gif)
 
 # Resolution
 
