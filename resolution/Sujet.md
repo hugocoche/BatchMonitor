@@ -19,7 +19,7 @@ Ces marchands proposent 3 types de Batch_list (M$ = millions de dollars).
 | Chars          | 10    | 20   | 15    |
 | Mitrailleuses  | 100   | 80   | 15    |
 | Bazookas       | 80    | 120  | 200   |
-| Coûts des Batch_list | 10M$  | 12M$ | 15M$  |
+| Coûts des lots | 10M$  | 12M$ | 15M$  |
 
 
 1 - Ecrire le problème sous la forme d'un programme linéaire et le résoudre.
