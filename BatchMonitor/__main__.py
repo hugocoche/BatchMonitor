@@ -12,7 +12,7 @@ Developed by :
 
 import os
 import sys
-
+import webbrowser
 import typer
 from rich.console import Console
 from subprocess import run
@@ -469,8 +469,8 @@ def solve(
 @app.command()
 def API():
     """Run the streamlit app"""
-    print(sys.executable)
-    run(["python", "-m", "streamlit", "run", "BatchMonitor/Welcome.py"])
+    
+    webbrowser.open('https://batchmonitor.streamlit.app/')
 
 
 if __name__ == "__main__":
