@@ -34,7 +34,28 @@ Those ItemRequest are regrouped in a `ItemListRequest` class.
 
 ## Call the CLI
 
-- Open a terminal
+- If you've already installed the package, you will not need to initialize a virtual environnment to use the package
+- In the other case
+- Clone the package
+```python
+git clone https://github.com/hugocoche/BatchMonitor.git
+```
+- Open a terminal au dossier racine du package
+```python
+cd ./BatchMonitor
+```
+- Initialize a virtual environment
+```
+py -m poetry shell
+```
+- Install the depedencies
+```python
+py -m poetry install
+```
+
+
+
+
 
 - You can see the possible command :
 ```python
