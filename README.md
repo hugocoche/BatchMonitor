@@ -97,6 +97,7 @@ python -m BatchMonitor solve batch.json ilr.json
 
 ```python
 python -m BatchMonitor api
+python -m streamlit run BatchMonitor\Welcome.py
 ```
 
 ![](presentation/presentation-gif.gif)
