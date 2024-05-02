@@ -1,3 +1,9 @@
-presentation/*.png filter=lfs diff=lfs merge=lfs -text
-presentation/*.gif filter=lfs diff=lfs merge=lfs -text
-resolution/*.ipynb filter=lfs diff=lfs merge=lfs -text
+presentation/Batch_Monitor.png filter=lfs diff=lfs merge=lfs -text
+presentation/create_json_files.png filter=lfs diff=lfs merge=lfs -text
+presentation/help_typer.png filter=lfs diff=lfs merge=lfs -text
+presentation/init-and-run.png filter=lfs diff=lfs merge=lfs -text
+presentation/presentation-gif.gif filter=lfs diff=lfs merge=lfs -text
+presentation/solve_ex.gif filter=lfs diff=lfs merge=lfs -text
+presentation/solve_help.png filter=lfs diff=lfs merge=lfs -text
+presentation/view_ex.gif filter=lfs diff=lfs merge=lfs -text
+resolution/resolution_with_library.ipynb filter=lfs diff=lfs merge=lfs -text
