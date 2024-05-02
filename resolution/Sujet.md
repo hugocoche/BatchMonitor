@@ -1,31 +1,27 @@
-# Sujet 01 : Aux Armes
+# Topic 01: To the Market
 
-Le pays PATIBULAIRE désire accroître son potentiel d'armement, il veut acquérir au moins :
+The country of HEALTHYLAND wishes to increase its potential for healthy eating, it wants to acquire at least:
 
-- 100 000 fusils,
-- 200 000 grenades défensives et offensives,
-- 100 de chars,
-- 400 mitrailleuses lourdes et autant de bazookas.
+- 100,000 apples,
+- 200,000 oranges,
+- 100 watermelons,
+- 400 bunches of bananas and as many pineapples.
 
-Il s'adresse pour ce faire à un marchands d'armes MALANDRIN.
-Celui-ci récupèrent les matériels, utilisés ou non, sur tous les champs de bataille.
+To do this, they turn to a fruit merchant named FRUITVENDOR. This merchant collects the produce, used or not, from all the fields and farms.
 
-Ces marchands proposent 3 types de Batch_list (M$ = millions de dollars).
+These merchants offer 3 types of Batch_list (M$ = million dollars).
 
-|                | Lot 1 | Lot 2 | Lot 3 |
-| -------------- | ----- | ---- | ----- |
-| Fusils         | 500   | 300  | 800   |
-| Grenades       | 1000  | 2000 | 1500  |
-| Chars          | 10    | 20   | 15    |
-| Mitrailleuses  | 100   | 80   | 15    |
-| Bazookas       | 80    | 120  | 200   |
-| Coûts des lots | 10M$  | 12M$ | 15M$  |
+|                | Batch 1 | Batch 2 | Batch 3 |
+| -------------- | ------- | ------- | ------- |
+| Apples         | 500     | 300     | 800     |
+| Oranges        | 1000    | 2000    | 1500    |
+| Watermelons    | 10      | 20      | 15      |
+| Bananas        | 100     | 80      | 15      |
+| Pineapples     | 80      | 120     | 200     |
+| Costs of Batches | 10M$ | 12M$   | 15M$    |
 
+1 - Write the problem as a linear program and solve it. We will assume, perhaps wrongly, that the batches are fractionable. We can propose a graphical representation of the constraints.
 
-1 - Ecrire le problème sous la forme d'un programme linéaire et le résoudre.
-On supposera, sans doute à tort, que les lots sont fractionnables.
-On pourra proposer une représentation graphique des contraintes.
+2 - On his side, a unitary fruit manufacturer FRESHFRUIT wants to take over the market. He is therefore looking to determine the unit prices of the 5 types of fruit. The goal is for each of the 3 batches to cost at most like FRUITVENDOR's batches. But he is also looking to maximize his profit. Write the associated linear problem and solve it. We will compare the matrix forms of the two problems. We will also compare their respective solutions. This linear problem is called the dual form of the previous linear problem.
 
-2 - De son coté, un fabricant d'arme unitaire DETAILIN veut s'emparer du marché. Il cherche à donc déterminer les prix unitaire des 5 types d'armement. L'objectif est que chacun des 3 lots coûtent au plus comme les lôts de MALANDRIN. Mais il cherche aussi maximiser son bénéfice. Écrire le problème linéaire associé et le résoudre. On comparera les formes matricielles des deux problèmes. On comprarera aussi leurs solutions respectives Ce problème linéaire s'appelle la forme duale du problème linéaire précédent.
-
-3 - MALANDRIN fait varier le prix de son premier lot. Étudier l'impact de cette variation pour les deux problèmes.
+3 - FRUITVENDOR varies the price of his first batch. Study the impact of this variation for the two problems.
