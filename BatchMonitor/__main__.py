@@ -15,7 +15,6 @@ import sys
 import webbrowser
 import typer
 from rich.console import Console
-from subprocess import run
 
 from BatchMonitor import (
     BatchCollection,
