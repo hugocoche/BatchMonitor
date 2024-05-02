@@ -469,9 +469,7 @@ def solve(
 @app.command()
 def API():
     """Run the streamlit app"""
-    run(["python", "-m", "pip", "install", "streamlit"])
-    run(["python", "-m", "poetry", "shell"])
-    run(["python", "-m", "poetry", "install"])
+    print(sys.executable)
     run(["python", "-m", "streamlit", "run", "BatchMonitor/Welcome.py"])
 
 
