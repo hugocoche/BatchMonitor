@@ -10,7 +10,11 @@ BatchMonitor is a library that allows you to solve problems related to linear pr
 
 This library come with a streamlined API that allows you to quickly build and solve optimization problems and a CLI Typer. It also provides a set of tools and options to help you analyze and visualize the results of your optimization problems.
 
-This module enables the resolution of various types of problems. We refer to one as `MinBatchExpense`, which aims to minimize the consumer's expenditure on different batches supplied by one or more batch sellers. The other is `MaxEarnings`, designed to maximize the profit of a unitary arms merchant.
+This module enables the resolution of various types of problems. We refer to one as `MinBatchExpense`, which aims to minimize the consumer's expenditure on different batches supplied by one or more batch sellers. The other is `MaxEarnings`, designed to maximize the profit of a unitary vendor.
+
+# Requirement
+
+- python3.11
 
 # Installation
 
@@ -127,6 +131,7 @@ python -m BatchMonitor api
 # Resolution
 
 We have prepared an example of problem-solving using the package located [here](resolution/resolution_with_library.ipynb).
+
 
 # Features
 
