@@ -33,6 +33,7 @@ On the other side, there is also the `ItemRequest` class. This class is used to 
 
 Those ItemRequest are regrouped in a `ItemListRequest` class.
 
+For more information, it's [here](docs/UTILISATION_GUIDE_LIBRARY.md)
 
 # CLI
 
@@ -127,6 +128,8 @@ python -m BatchMonitor api
 ```
 
 ![](presentation/api_presentation.gif)
+
+For more information, it's [here](docs/UTILISATION_GUIDE_STREAMLIT.md)
 
 # Resolution
 
