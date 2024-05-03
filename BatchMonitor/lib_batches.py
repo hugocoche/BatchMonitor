@@ -1686,7 +1686,7 @@ class BatchLists:
                         [batch for batch in batches]
                     )
 
-            self.batch_collections = list(seller_to_batches.values())
+            self.batchlists = list(seller_to_batches.values())
 
             for batches in self:
                 for batch in batches:
@@ -2181,7 +2181,6 @@ class BatchLists:
                     bc.add_batch(batch_to_add)
                 if isinstance(bc, BatchCollection):
                     bl.add_BatchCollection(bc)
-            bl.__post_init__()
             return bl
         except Exception as error:
             raise error
