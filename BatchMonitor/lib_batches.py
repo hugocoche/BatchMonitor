@@ -946,7 +946,7 @@ class BatchCollection:
     >>> BatchCollection(seller = "seller1", batch_list = ["batch 1", "batch 2"])
     Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
-    File "<@beartype(batches_optimization.lib_batches.BatchCollection.__init__) at 0x20d788662a0>", line 63, in __init__
+    File "<@beartype(BatchMonitor.lib_batches.BatchCollection.__init__) at 0x20d788662a0>", line 63, in __init__
     File "<string>", line 5, in __init__
     in __post_init__
         raise TypeError(f"Expected all elements in 'batch_list' to be of type 'Batch', but got '{type(batch).__name__}'.")

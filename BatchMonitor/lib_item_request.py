@@ -5,7 +5,7 @@ Library contains the ItemRequest and the ItemListRequest dataclasses.
 - The ItemRequest dataclass represents an item requested by the requester.
 - The ItemListRequest dataclass represents the list of all items requested by the requester.
 
-- This library is useful to resolve the batches_optimization problem.
+- This library is useful to resolve the minBatchExpense and maxEarnings problems.
 
 You can import this library with the following command :
     import BatchMonitor.lib_item_request as lir
@@ -300,7 +300,7 @@ class ItemListRequest:
     ...         )
     Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
-    File "<@beartype(batches_optimization.lib_item_request.ItemListRequest.__init__) at 0x219e22916c0>", line 44, in __init__
+    File "<@beartype(BatchMonitor.lib_item_request.ItemListRequest.__init__) at 0x219e22916c0>", line 44, in __init__
     File "<string>", line 4, in __init__
     line 166, in __post_init__
         raise TypeError(

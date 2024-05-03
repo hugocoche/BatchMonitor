@@ -2,7 +2,7 @@
 
 lib_format have to be used with lib_batches, lib_item_request or lib_optimization modules.
 
-- He allows to format the objects of the batches_optimization project to be printed in the console.
+- He allows to format the objects of the BatchMonitor project to be printed in the console.
 - You can format a BatchCollection object, a BatchLists object, an ItemListRequest object, the result of the minBatchExpense function or the result of the maxEarnings function.
 
 You can import with the following command :

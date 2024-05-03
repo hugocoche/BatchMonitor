@@ -23,6 +23,64 @@ def createDatabaseFromBatchLists(data: BatchLists) -> pd.DataFrame:
     return df
 
 
+def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
+    """Function allowing to create a database from the data. From the Batchlists class"""
+
+    all_batch_with_seller = dict()
+    quantities_of_items: dict[str, list[int | float]] = dict()
+
+    for row in json_df.itertuples():
+        batch_list = row.batch_list
+        seller = row.seller
+        all_batch_with_seller[seller] = {
+            batch["name"]: batch["price"] for batch in batch_list
+        }
+        for batch in batch_list:
+            for item in batch["items"]:
+                item_name = item["name"]
+                if item_name in quantities_of_items:
+                    quantities_of_items[item_name].append(item["quantity_in_batch"])
+                else:
+                    quantities_of_items[item_name] = [item["quantity_in_batch"]]
+
+    all_seller_with_doublons = [
+        batch_seller
+        for batch_seller in all_batch_with_seller
+        for _ in all_batch_with_seller[batch_seller]
+    ]
+    all_batch = [
+        batch
+        for batch_seller in all_batch_with_seller
+        for batch in all_batch_with_seller[batch_seller]
+    ]
+    all_price = [
+        all_batch_with_seller[batch_seller][batch]
+        for batch_seller in all_batch_with_seller
+        for batch in all_batch_with_seller[batch_seller]
+    ]
+
+    already_seen = set()
+    all_item_name = []
+    for i in json_df["batch_list"]:
+        for j in i:
+            for k in j["items"]:
+                if k["name"] not in already_seen:
+                    all_item_name.append(k["name"])
+                    already_seen.add(k["name"])
+    all_item_name.append("TOTAL")
+    all_item_name.append("Seller")
+
+    df = pd.DataFrame(data=json_df, columns=all_batch, index=all_item_name)
+
+    for row_item in quantities_of_items.keys():
+        df.loc[row_item] = quantities_of_items[row_item]
+    df.loc["TOTAL"] = all_price
+    df = df.astype(object)
+    df.loc["Seller"] = all_seller_with_doublons
+
+    return df
+
+
 def indice_batch_current_seller(Batches: BatchLists, seller) -> int | None:
     if Batches is not None and seller is not None:
         for i, batchcollection in enumerate(Batches.batchlists):
