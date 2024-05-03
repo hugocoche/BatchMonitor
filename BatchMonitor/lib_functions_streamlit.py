@@ -56,9 +56,11 @@ def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
     ]
 
     unique_batch = set()
+    counter = 1
     for i, batch in enumerate(all_batch):
         if batch in unique_batch:
-            all_batch[i] = batch + f"_{i}"
+            all_batch[i] = batch + f".{counter}"
+            counter += 1
         unique_batch.add(all_batch[i])
 
     all_price = [
