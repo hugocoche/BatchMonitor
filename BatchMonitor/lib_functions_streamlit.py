@@ -43,7 +43,7 @@ def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
                 else:
                     quantities_of_items[item_name] = [item["quantity_in_batch"]]
 
-    all_seller_with_doublons = [
+    seller_associate_to_each_batch = [
         batch_seller
         for batch_seller in all_batch_with_seller
         for _ in all_batch_with_seller[batch_seller]
@@ -55,13 +55,13 @@ def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
         for batch in all_batch_with_seller[batch_seller]
     ]
 
-    unique_batch = []
+    unique_batch: list = []
     for i, batch in enumerate(all_batch):
-        counter = all_batch.count(batch)
-        if batch in unique_batch:
-            all_batch[i] = batch + f".{counter}"
-            counter += 1
+        counter = unique_batch.count(batch)
         unique_batch.append(all_batch[i])
+        if batch in unique_batch:
+            all_batch[i] = batch + f".{counter + 1}"
+            counter += 1
 
     all_price = [
         all_batch_with_seller[batch_seller][batch]
@@ -86,7 +86,7 @@ def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
         df.loc[row_item] = quantities_of_items[row_item]
     df.loc["TOTAL"] = all_price
     df = df.astype(object)
-    df.loc["Seller"] = all_seller_with_doublons
+    df.loc["Seller"] = seller_associate_to_each_batch
 
     return df
 
