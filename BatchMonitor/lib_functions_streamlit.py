@@ -48,11 +48,19 @@ def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
         for batch_seller in all_batch_with_seller
         for _ in all_batch_with_seller[batch_seller]
     ]
+
     all_batch = [
         batch
         for batch_seller in all_batch_with_seller
         for batch in all_batch_with_seller[batch_seller]
     ]
+
+    unique_batch = set()
+    for i, batch in enumerate(all_batch):
+        if batch in unique_batch:
+            all_batch[i] = batch + f"_{i}"
+        unique_batch.add(all_batch[i])
+
     all_price = [
         all_batch_with_seller[batch_seller][batch]
         for batch_seller in all_batch_with_seller
@@ -61,12 +69,12 @@ def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
 
     already_seen = set()
     all_item_name = []
-    for i in json_df["batch_list"]:
-        for j in i:
-            for k in j["items"]:
-                if k["name"] not in already_seen:
-                    all_item_name.append(k["name"])
-                    already_seen.add(k["name"])
+    for batches in json_df["batch_list"]:
+        for batch in batches:
+            for item in batch["items"]:
+                if item["name"] not in already_seen:
+                    all_item_name.append(item["name"])
+                    already_seen.add(item["name"])
     all_item_name.append("TOTAL")
     all_item_name.append("Seller")
 
