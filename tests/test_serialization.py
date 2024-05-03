@@ -6,9 +6,7 @@ Test module for the serialization method"""
 import os
 import sys
 import json
-
 from BatchMonitor import BatchCollection, BatchLists, ItemListRequest
-
 from tests import batch_collection_fixture, batchlists_fixture, ilr_fixture
 
 

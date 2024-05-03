@@ -4,9 +4,9 @@ Unit tests for the bar progression of the app"""
 
 import os
 import sys
-
 import pytest
 from unittest.mock import patch, MagicMock
+
 from BatchMonitor.lib_app import (
     _resolution_progress_bar,
     _animate_progress_bar,

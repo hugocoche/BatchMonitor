@@ -5,8 +5,9 @@ Integration tests for the solve commands of BatchMonitor application"""
 import os
 import sys
 from io import StringIO
-
 import pytest
+from BatchMonitor import BatchCollection, BatchLists, ItemListRequest
+from unittest.mock import patch
 
 from BatchMonitor.lib_app import (
     _stages_progress_both,
@@ -22,9 +23,6 @@ from BatchMonitor.__main__ import (
     init_and_run,
 )
 
-from BatchMonitor import BatchCollection, BatchLists, ItemListRequest
-
-from unittest.mock import patch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 

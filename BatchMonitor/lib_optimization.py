@@ -27,10 +27,8 @@ Developed by :
 import copy
 import os
 import sys
-
 import numpy as np
 import pulp as pulp
-
 from .lib_batches import Batch, BatchCollection, BatchLists
 from .lib_item_request import ItemListRequest, ItemRequest
 

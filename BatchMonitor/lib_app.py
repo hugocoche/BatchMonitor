@@ -6,7 +6,6 @@ import copy
 import os
 import sys
 import time
-
 import numpy as np
 import rich
 import rich.table

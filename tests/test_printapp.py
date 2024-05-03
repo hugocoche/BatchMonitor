@@ -4,7 +4,6 @@ Test the print functions of the app."""
 
 import os
 import sys
-
 import pytest
 from unittest.mock import patch, MagicMock
 

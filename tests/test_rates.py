@@ -9,7 +9,6 @@ import sys
 import copy
 import numpy as np
 import pulp as pulp
-
 from BatchMonitor import Batch
 
 from BatchMonitor.lib_optimization import (

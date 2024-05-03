@@ -10,7 +10,6 @@ import numpy as np
 import pulp as pulp
 import pytest
 
-
 from BatchMonitor import (
     ItemListRequest,
     ItemRequest,

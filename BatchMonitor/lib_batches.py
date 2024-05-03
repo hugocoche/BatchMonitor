@@ -20,7 +20,6 @@ Developed by :
 import json
 import warnings
 from dataclasses import dataclass, field
-
 import numpy as np
 from beartype.typing import Iterator
 from prettytable import PrettyTable

@@ -4,10 +4,9 @@ Test the style of the app."""
 
 import os
 import sys
-
 import pytest
-
 from unittest.mock import patch, MagicMock
+
 from BatchMonitor.lib_app import (
     _style_h2,
     _styled_echo,

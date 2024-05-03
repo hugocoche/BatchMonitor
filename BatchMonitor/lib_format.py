@@ -17,10 +17,8 @@ Developed by :
 import os
 import sys
 import warnings
-
 from rich.table import Table
 from rich.text import Text
-
 from .lib_batches import BatchCollection, BatchLists
 from .lib_item_request import ItemListRequest
 

@@ -18,7 +18,6 @@ Developed by :
 import json
 import math
 from dataclasses import dataclass, field
-
 from beartype.typing import Iterator
 from prettytable import PrettyTable
 from serde import serde

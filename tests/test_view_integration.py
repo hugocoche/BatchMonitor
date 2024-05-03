@@ -5,7 +5,6 @@ Integration tests for the view commands of BatchMonitor application"""
 import os
 import sys
 import pytest
-
 from subprocess import run
 from pathlib import Path
 

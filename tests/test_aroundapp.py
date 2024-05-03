@@ -7,7 +7,6 @@ import sys
 import io
 import pytest
 from unittest.mock import patch, MagicMock
-
 from BatchMonitor.__main__ import _restart_app
 from BatchMonitor.lib_app import _thanks
 

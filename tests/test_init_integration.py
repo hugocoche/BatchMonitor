@@ -4,10 +4,7 @@ Integration tests for the initialization commands of BatchMonitor application"""
 
 import os
 import sys
-
-
 from unittest.mock import patch, MagicMock, call
-
 import pytest
 import numpy as np
 from rich.text import Text

@@ -6,9 +6,7 @@ Tests for the Item_In_Batch dataclass.
 import os
 import sys
 import pytest
-
 from BatchMonitor import Item_in_batch
-
 from BatchMonitor.lib_batches import Incompatible_negative_value
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))

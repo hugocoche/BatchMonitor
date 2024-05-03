@@ -1,7 +1,4 @@
 .pyc
 .coverage
 .pytest_cache
-dist
 __pycache__
-docs
-test.ipynb
