@@ -73,6 +73,6 @@ def batch_list_global(database):
             else:
                 for batchcollection in batches.batchlists:
                     if batchcollection.seller == batchSeller_name:
-                        batchcollection.batch_list.items.extend(items)
+                        batchcollection.batch_list.items.append(items)
 
     return batches
