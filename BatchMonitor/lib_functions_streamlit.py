@@ -30,8 +30,8 @@ def create_df_from_json(json_df: pd.DataFrame) -> pd.DataFrame:
     quantities_of_items: dict[str, list[int | float]] = dict()
 
     for row in json_df.itertuples():
-        batch_list = row.batch_list
-        seller = row.seller
+        batch_list = getattr(row, "batch_list")
+        seller = getattr(row, "seller")
         all_batch_with_seller[seller] = {
             batch["name"]: batch["price"] for batch in batch_list
         }
