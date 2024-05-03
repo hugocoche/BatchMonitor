@@ -1,6 +1,6 @@
-"""
-Description: This file contains the functions used in the streamlit app to create the database and the batch list from the data.
+"""Description
 
+This file contains the functions used in the streamlit app to create the database and the batch list from the data.
 """
 
 import pandas as pd

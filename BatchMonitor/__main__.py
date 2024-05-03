@@ -1,8 +1,19 @@
 """Description of the app.
-Module contains the user interface of the batches_optimization package.
+Module contains the command line interface of the BatchMonitor package.
 
 - This app work much with some prompt functions to get the user's choices.
-- The user can choose the problem he wants to resolve, the type of batches he wants to create, the number of batches he wants to create, the number of items he wants to create, the category of the variables, the constraints he wants to set on the variables, the rates he wants to apply on the prices of the batches, the constraints he wants to set on the expenses of the customer, the constraints he wants to set on the prices of the items, the constraints he wants to set on the benefits of the retailer, the constraints he wants to set on the quantities of the batches.
+- The user can choose :
+    - the problem he wants to resolve
+    - the type of batches he wants to create
+    - the number of batches he wants to create
+    - the number of items he wants to create
+    - the category of the variables
+    - the constraints he wants to set on the variables
+    - the rates he wants to apply on the prices of the batches
+    - the constraints he wants to set on the expenses of the customer
+    - the constraints he wants to set on the prices of the items
+    - the constraints he wants to set on the benefits of the retailer
+    - the constraints he wants to set on the quantities of the batches.
 
 Developed by :
     - [Hugo Cochereau](https://github.com/hugocoche)
@@ -43,31 +54,7 @@ from .lib_app import (
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-MARKDOWN_TITLE = """
-# *WELCOME TO THE BATCHES OPTIMIZATION APP !*
-"""
-MARKDOWN_DESCRIPTION = """
-## Overview
-> This app allows you to optimize the expenses of a customer who wants to buy items from different sellers or to maximize the benefits of a retailer who wants to sell items to different customers.
 
-> First of all, you have to type app.py --help to see the different options you can choose.
-
-> If you want to stop the app, you can type CTRL + C.
-
-1. You can create a BatchCollection or a BatchLists object.
-2. You can create an ItemListRequest object.
-3. You can choose the type of variables for the quantities of the batches and the prices of the items.
-4. You can apply different rates on the prices of the batches.
-5. You can set constraints on the quantities of the batches.
-6. You can set constraints on the expenses of the customer.
-7. You can set constraints on the prices of the items.
-8. You can set constraints on the benefits of the retailer.
-9. You can resolve the optimization problem with the minBatchExpense function, the maxEarnings function or both.
-
-> If you have already created a BatchCollection, BatchLists, and an ItemListRequest object, you can solve the optimization problem with the following command:
-
-- python3 -m batches_optimization solve --batches-path path_to_batches --items-path path_to_items
-"""
 app = typer.Typer()
 
 console = Console()
@@ -236,6 +223,7 @@ def init_and_run(
 @app.command()
 def demo_batchCollection():
     """Create an example of a BatchCollection object and save it in a json file"""
+
     bc = BatchCollection.from_str(
         "batch 1: 1; 2xapple, 5xbanana, 6xorange",
         "batch 2: 2; 3xapple, 4xbanana, 5xorange",
@@ -248,6 +236,7 @@ def demo_batchCollection():
 @app.command()
 def demo_batchLists():
     """Create an example of a BatchLists object and save it in a json file"""
+
     bl = BatchLists.from_str(
         strings=[
             "seller 1_batch 1: 1; 2xapple, 5xbanana, 6xorange",
@@ -267,6 +256,7 @@ def demo_batchLists():
 @app.command()
 def demo_itemListRequest():
     """Create an example of an ItemListRequest object and save it in a json file"""
+
     ilr = ItemListRequest.from_str(
         "1-3 of apple",
         "2-5 of banana",
@@ -442,6 +432,11 @@ def solve(
 
     Returns:
     - None
+
+    Prints:
+    - The resolution of the minBatchExpense problem.\n
+    - The resolution of the maxEarnings problem.\n
+    - The resolution of both problems.\n
 
     Raises:
     - Exception: if the json files do not contain the required objects

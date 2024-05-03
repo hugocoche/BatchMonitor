@@ -7,10 +7,10 @@ Library containing the creation of dataclasses Item_in_batch, Batch, BatchCollec
 - BatchCollection : class representing the list of batches sold by one seller.
 - BatchLists : class representing the list of batches sold by each seller.
 
-- This library is useful to resolve the batches_optimization problem.
+- This library is useful to resolve the BatchMonitor problem.
 
-You can import this library with the following command :
-    import lib_batches as lb
+You can import this library with the following command:
+    import BatchMonitor.lib_batches as lb
 
 Developed by :
     - [Hugo Cochereau](https://github.com/hugocoche)
@@ -40,7 +40,7 @@ class Item_in_batch:
 
     Args :
         name: str -> name of the item
-        quantity_in_batch: float -> quantity of the item in the batch
+        quantity_in_batch: float | int -> quantity of the item in the batch
 
     Returns :
         Item_in_batch : item and its quantity in the batch
@@ -419,7 +419,8 @@ class Batch:
         """Returns a new Batch object with the items of the two Batch objects.
         name is the concatenation of the names of the two Batch objects.
         price is the sum of the prices of the two Batch objects.
-        if the two Batch objects have the same item, the quantity of the item is the sum of the quantities of the two Batch objects.
+        if the two Batch objects have the same item,
+        the quantity of the item is the sum of the quantities of the two Batch objects.
 
         Args :
         - other : Batch : other batch
@@ -681,8 +682,8 @@ class Batch:
         """Removes an item or a list of items from the list of items in the batch.
 
         Args :
-        - index : int | list[int] : index or list of indexes of the items to remove from the list of items in the batch
-        - item_names : str : name of the item to remove from the list of items in the batch
+        - *index : int : index or several indexes of the items to remove from the list of items in the batch
+        - **item_names : str : name of the item to remove from the list of items in the batch
 
         Returns :
         - Batch : batch with the removed item
@@ -2019,7 +2020,7 @@ class BatchLists:
         """Removes a batch collection from the list of batch collections in the BatchLists.
 
         Args :
-        - index : int : index of the batch collection to remove
+        - index : int | list[index] : index of the batch collection to remove
         - seller_name : str : name of the seller of the batch collection to remove
 
         Returns :

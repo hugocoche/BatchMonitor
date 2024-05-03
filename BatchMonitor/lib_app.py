@@ -1,6 +1,7 @@
 """Description.
 
-This module contains the different functiions used for the app"""
+This module contains the different functions used for the CLI
+"""
 
 import copy
 import os
@@ -118,6 +119,8 @@ def _style_invalid_choice(text: str):
 
 
 def _thanks():
+    """Echo a styled message to thank the user."""
+
     console.print(
         r"""
 _________________________________________________________
@@ -382,9 +385,11 @@ def _init_objective_function_constraints_prompt(
 def _init_objective_function_constraints(
     min: str, max: str
 ) -> tuple[float | None, float | None]:
-    """Prompt the user to choose the expenses constraints or the benefits constraints.
+    """
+    Prompt the user to choose the expenses constraints or the benefits constraints.
     In fact, this is constraints for the objective function of the optimization problem
     """
+
     (
         choice_prompt,
         min_prompt,
@@ -420,9 +425,11 @@ def _init_objective_function_constraints(
 
 
 def _init_rates(rate_choice: str, number_of_batches: int) -> np.ndarray:
-    """Prompt the user to enter the rates he has for the batches.
+    """
+    Prompt the user to enter the rates he has for the batches.
     The rates are the exchange rate, the tax rate, the custom duties and the transport fee.
-    and they are applied on the prices of the batches."""
+    and they are applied on the prices of the batches.
+    """
 
     if rate_choice == "exchange rate":
         Default = f"(Default: 1,1,....,1 or 1 for all batches) => (batch_cost x {rate_choice})"
@@ -466,7 +473,8 @@ def _verify_rates(rates: np.ndarray, number_of_batches: int) -> bool:
 
 
 def _batch_transformation(batch_list: BatchCollection | BatchLists):
-    """Copy the batch list to avoid modifying the original one.
+    """
+    Copy the batch list to avoid modifying the original one.
     Furthermore, transform the copy of the BatchLists object into a BatchCollection object.
     """
 

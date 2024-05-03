@@ -17,7 +17,7 @@ Limits :
 - The rates are applied to the price of the batch
 
 You can import this module with the following command:
-    import lib_optimization as opt
+    import BatchMonitor.lib_optimization as opt
 
 Developed by :
     - [Hugo Cochereau](https://github.com/hugocoche)
@@ -354,7 +354,8 @@ def minBatchExpense(
     maximum_expense: float | None = None,
     batch_constraints: dict[str, tuple[float, float | None]] | None = None,
 ) -> dict:
-    """Generate the primal problem to minimize the expense of the requester of the batches.
+    """
+    Generate the primal problem to minimize the expense of the requester of the batches.
     The objective function is the sum of the price of each batch multiplied by the quantity of the batch.
     The constraints are the quantities of the items requested.
     The variables are the quantities of the batches.

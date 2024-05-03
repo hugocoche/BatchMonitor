@@ -8,7 +8,7 @@ Library contains the ItemRequest and the ItemListRequest dataclasses.
 - This library is useful to resolve the batches_optimization problem.
 
 You can import this library with the following command :
-    import lib_item_request as lir
+    import BatchMonitor.lib_item_request as lir
 
 Developed by :
     - [Hugo Cochereau](https://github.com/hugocoche)
