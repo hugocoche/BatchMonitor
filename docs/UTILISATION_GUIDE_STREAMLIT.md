@@ -63,4 +63,4 @@ batch.to_json("Batch_list.json")
 
 The Visualization page is here to help you visualize the demand list and the batch list you have created and to see the result of the optimization problem.
 
-There is a bunch of options that you can use to simulate different scenarios and see the result of the optimization problem. those options are the same as described in the sub section "Functions" in the [UTILISATION_GUIDE_LIBRARY](docs/UTILISATION_GUIDE_LIBRARY.md) file.
+There is a bunch of options that you can use to simulate different scenarios and see the result of the optimization problem. those options are the same as described in the sub section "Functions" in the [UTILISATION_GUIDE_LIBRARY](UTILISATION_GUIDE_LIBRARY.md) file.
