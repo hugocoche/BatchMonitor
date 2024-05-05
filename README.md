@@ -19,7 +19,7 @@ This module enables the resolution of various types of problems. We refer to one
 # Installation
 
 ```bash
-python -m pip install BatchMonitor
+python -m pip install git+https://github.com/hugocoche/BatchMonitor
 ```
 # Utilisation guide
 
