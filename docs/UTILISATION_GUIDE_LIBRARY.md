@@ -86,7 +86,7 @@ The country of HEALTHYLAND wishes to increase its potential for healthy eating, 
 - 100 watermelons,
 - 400 bunches of bananas and as many pineapples.
 
-To do this, they turn to a merchant of All_requested_items named FRUITVENDOR. This merchant collects the produce, used or not, from all the fields and farms.
+To do this, they turn to a merchant named FRUITVENDOR. This merchant collects the produce, used or not, from all the fields and farms.
 
 These merchants offer 3 types of Batch_list (M$ = million dollars).
 
